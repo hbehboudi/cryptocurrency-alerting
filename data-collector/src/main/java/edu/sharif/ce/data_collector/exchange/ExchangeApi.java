@@ -1,9 +1,10 @@
 package edu.sharif.ce.data_collector.exchange;
 
-import edu.sharif.ce.data_collector.model.TickerPrice;
+import com.binance.api.client.domain.market.CandlestickInterval;
+import edu.sharif.ce.commons.model.Candlestick;
 
 import java.util.List;
 
 public interface ExchangeApi {
-    List<TickerPrice> getAllPrices();
+    List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval);
 }

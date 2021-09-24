@@ -1,6 +1,7 @@
 package edu.sharif.ce.commons.util;
 
 import com.google.gson.Gson;
+import edu.sharif.ce.commons.config.Config;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;
@@ -9,15 +10,14 @@ public class JsonDeserializer<T> implements Deserializer<T> {
     private final Gson gson = new Gson();
     private Class<T> deserializedClass;
 
-    public JsonDeserializer(Class<T> deserializedClass) {
-        this.deserializedClass = deserializedClass;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
-    public void configure(Map<String, ?> map, boolean b) {
-        if (deserializedClass == null) {
-            deserializedClass = (Class<T>) map.get("serializedClass");
+    public void configure(Map<String, ?> configs, boolean isKey) {
+        try {
+            var propertyName = isKey ? Config.KEY_CLASS : Config.VALUE_CLASS;
+            deserializedClass = (Class<T>) Class.forName((String) configs.get(propertyName));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
