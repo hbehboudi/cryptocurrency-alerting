@@ -1,4 +1,4 @@
-package edu.sharif.ce.data_collector.producer.factory;
+package edu.sharif.ce.data_collector.producer;
 
 import edu.sharif.ce.commons.model.Candlestick;
 import edu.sharif.ce.commons.util.JsonSerializer;
@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class KafkaProducerFactory {
+public class KafkaProducerInitiator {
     public KafkaProducer<String, Candlestick> create() {
         var bootstrapServers = Config.BOOTSTRAP_SERVERS;
         var keySerializerName = StringSerializer.class.getName();

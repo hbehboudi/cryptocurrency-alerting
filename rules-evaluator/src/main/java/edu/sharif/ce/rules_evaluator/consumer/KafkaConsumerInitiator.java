@@ -1,4 +1,4 @@
-package edu.sharif.ce.rules_evaluator.consumer.factory;
+package edu.sharif.ce.rules_evaluator.consumer;
 
 import edu.sharif.ce.commons.model.Candlestick;
 import edu.sharif.ce.commons.util.JsonDeserializer;
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.Random;
 
-public class KafkaConsumerFactory {
+public class KafkaConsumerInitiator {
     public KafkaConsumer<String, Candlestick> create() {
         var bootstrapServers = Config.BOOTSTRAP_SERVERS;
         var keyDeserializerName = StringDeserializer.class.getName();
