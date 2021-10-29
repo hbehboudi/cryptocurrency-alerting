@@ -25,7 +25,6 @@ namespace WebSite.Application.Services.Users.Commands.Register
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.Email,
-                IsPublisher = request.IsPublisher,
             };
 
             var result = userManager.CreateAsync(user, request.Password).Result;
@@ -33,7 +32,7 @@ namespace WebSite.Application.Services.Users.Commands.Register
             if (result.Succeeded)
             {
                 signInManager.SignOutAsync();
-                return new ResultDto(true, "Registration completed successfully.");
+                return new ResultDto(true, "ثبت‌نام با موفقیت انجام شد.");
             }
 
             var errorMessage = string.Join("\n", result.Errors.Select(x => x.Description));

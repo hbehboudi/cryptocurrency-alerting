@@ -10,15 +10,12 @@
 
         public string Password { get; }
 
-        public bool IsPublisher { get; set; }
-
-        public RegisterRequest(string firstName, string lastName, string email, string password, bool isPublisher)
+        public RegisterRequest(string firstName, string lastName, string email, string password)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Password = password;
-            IsPublisher = isPublisher;
         }
     }
 }
