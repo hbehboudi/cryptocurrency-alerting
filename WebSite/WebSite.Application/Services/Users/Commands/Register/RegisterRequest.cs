@@ -2,18 +2,15 @@
 {
     public class RegisterRequest
     {
-        public string FirstName { get; }
-
-        public string LastName { get; }
+        public string Name { get; }
 
         public string Email { get; }
 
         public string Password { get; }
 
-        public RegisterRequest(string firstName, string lastName, string email, string password)
+        public RegisterRequest(string name, string email, string password)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name;
             Email = email;
             Password = password;
         }

@@ -4,9 +4,7 @@ namespace EndPoint.Site.Models.ViewModels.Authentication
 {
     public class RegisterViewModel
     {
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
@@ -22,4 +20,3 @@ namespace EndPoint.Site.Models.ViewModels.Authentication
         public string ConfirmPassword { get; set; }
     }
 }
-

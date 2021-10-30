@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "ثبت‌نام";
+    ViewData["Title"] = "ورود";
     Layout = null;
 }
 
@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>صفحه ثبت‌نام</title>
+        <title>ورود</title>
         <meta name="description" content="Some description for the page" />
         <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon.png">
         <link href="~/css/style.css" rel="stylesheet">
@@ -29,12 +29,8 @@
                                         <div class="text-center mb-3">
                                             <a href="~/index.html"><img src="~/images/logo-full.png"></a>
                                         </div>
-                                        <h4 class="text-center mb-4 text-white">ثبت‌نام در سامانه</h4>
+                                        <h4 class="text-center mb-4 text-white">ورود به حساب کاربری</h4>
                                         <div>
-                                            <div class="form-group">
-                                                <label class="mb-1 text-white"><strong>نام</strong></label>
-                                                <input type="text" class="form-control input-rounded text-black" id="Name">
-                                            </div>
                                             <div class="form-group">
                                                 <label class="mb-1 text-white"><strong>ایمیل</strong></label>
                                                 <input type="email" class="form-control input-rounded text-black" id="Email">
@@ -43,16 +39,23 @@
                                                 <label class="mb-1 text-white"><strong>رمز عبور</strong></label>
                                                 <input type="password" class="form-control input-rounded text-black" id="Password">
                                             </div>
-                                            <div class="form-group">
-                                                <label class="mb-1 text-white"><strong>تکرار رمز عبور</strong></label>
-                                                <input type="password" class="form-control input-rounded text-black" id="ConfirmPassword">
+                                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox ml-1 text-white">
+                                                        <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                                                        <label class="custom-control-label" for="basic_checkbox_1">به خاطر سپردن</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <a class="text-white" href="~/page-forgot-password.html">رمز عبور خود را فراموش کرده‌اید؟</a>
+                                                </div>
                                             </div>
-                                            <div class="text-center mt-4">
-                                                <button type="submit" onclick="RegisterUser()" class="btn bg-white text-primary btn-block btn-rounded">ثبت‌نام</button>
+                                            <div class="text-center">
+                                                <button type="submit" onclick="LoginUser()" class="btn bg-white text-primary btn-block btn-rounded">ورود</button>
                                             </div>
                                         </div>
                                         <div class="new-account mt-3">
-                                            <p class="text-white mb-0">قبلا ثبت‌نام کرده‌اید؟ <a class="text-white" href="Login">ورود</a></p>
+                                            <p class="text-white mb-0">حساب کاربری ندارید؟ <a class="text-white" href="Register">ثبت نام</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -68,30 +71,26 @@
         <script src="~/Sweetalert2/sweetalert2.min.js"></script>
     
         <script>
-            function RegisterUser() {
-                var Name = $("#Name").val();
+            function LoginUser() {
                 var Email = $("#Email").val();
                 var Password = $("#Password").val();
-                var ConfirmPassword = $("#ConfirmPassword").val();
     
                 var postData = {
-                    'Name': Name,
                     'Email': Email,
-                    'Password': Password,
-                    'ConfirmPassword': ConfirmPassword,
+                    'Password': Password
                 };
     
                 $.ajax({
                     contentType: 'application/x-www-form-urlencoded',
                     dataType: 'json',
                     type: "POST",
-                    url: "Register",
+                    url: "Login",
                     data: postData,
                     success: function (data) {
                         if (data.isSuccess == true) {
                             swal.fire('موفق!', data.message, 'success').then(
                                 function (isConfirm) {
-                                    window.location.replace("Login");
+                                    window.location.replace("/");
                                 }
                             );
                         }

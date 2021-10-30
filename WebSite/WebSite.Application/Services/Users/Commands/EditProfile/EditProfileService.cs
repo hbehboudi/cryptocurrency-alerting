@@ -16,8 +16,7 @@ namespace WebSite.Application.Services.Users.Commands.EditProfile
         {
             var user = userManager.FindByNameAsync(request.Email).Result;
 
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
+            user.Name = request.Name;
             user.PhoneNumber = request.PhoneNumber;
 
             var result = userManager.UpdateAsync(user).Result;

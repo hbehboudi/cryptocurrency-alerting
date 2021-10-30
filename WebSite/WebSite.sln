@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSite.Infrastructure", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSite.Persistence", "WebSite.Persistence\WebSite.Persistence.csproj", "{EEBA3EC7-1D5A-460D-ACAA-1072E385A0A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndPoint.Site", "EndPoint.Site\EndPoint.Site.csproj", "{836F74B7-A2A3-4462-B143-8FEBF1B01309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndPoint.Site", "EndPoint.Site\EndPoint.Site.csproj", "{836F74B7-A2A3-4462-B143-8FEBF1B01309}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

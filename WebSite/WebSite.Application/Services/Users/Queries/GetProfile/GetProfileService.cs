@@ -16,7 +16,7 @@ namespace WebSite.Application.Services.Users.Queries.GetProfile
             var user = userManager.FindByNameAsync(request.Email).Result;
 
             var result = new GetProfileDto(user.Email, user.PhoneNumber,
-                user.FirstName, user.LastName, false, false);
+                user.Name, false, false);
 
             return new ResultDto<GetProfileDto>(true, "Profile returned successfully.", result);
         }

@@ -6,16 +6,13 @@
 
         public string PhoneNumber { get; }
 
-        public string FirstName { get; }
+        public string Name { get; }
 
-        public string LastName { get; }
-
-        public EditProfileRequest(string email, string phoneNumber, string firstName, string lastName)
+        public EditProfileRequest(string email, string phoneNumber, string name)
         {
             Email = email;
             PhoneNumber = phoneNumber;
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace EndPoint.Site.Controllers
                 return Json(new ResultDto(false, error));
             }
 
-            var registerRequest = new RegisterRequest(registerViewModel.FirstName, registerViewModel.LastName, registerViewModel.Email, registerViewModel.Password);
+            var registerRequest = new RegisterRequest(registerViewModel.Name, registerViewModel.Email, registerViewModel.Password);
             var resultDto = userFacad.RegisterService.Execute(registerRequest);
 
             return Json(resultDto);
@@ -59,39 +59,45 @@ namespace EndPoint.Site.Controllers
             return Json(loginResult);
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            userFacad.LogoutService.Execute();
+            return RedirectToAction("Index", "Home");
+        }
+
         public string Validate(RegisterViewModel request)
         {
-            if (string.IsNullOrWhiteSpace(request.FirstName) ||
-                string.IsNullOrWhiteSpace(request.LastName) ||
+            if (string.IsNullOrWhiteSpace(request.Name) ||
                 string.IsNullOrWhiteSpace(request.Email) ||
                 string.IsNullOrWhiteSpace(request.Password) ||
                 string.IsNullOrWhiteSpace(request.ConfirmPassword))
             {
-                return "لطفا تمامی موارد را ارسال نمایید.";
+                return "لطفا تمامی موارد را ارسال نمایید";
             }
 
             if (User.Identity.IsAuthenticated == true)
             {
-                return "شما قبلا ثبت نام کرده‌اید.";
+                return "شما قبلا ثبت نام کرده‌اید";
             }
 
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
 
             if (!Regex.Match(request.Email, emailRegex, RegexOptions.IgnoreCase).Success)
             {
-                return "ایمیل خود را به درستی وارد نمایید.";
+                return "ایمیل خود را به درستی وارد نمایید";
             }
 
             if (request.Password.Length < 8)
             {
-                return "رمز عبور باید حداقل از ۸ کاراکتر تشکیل شده باشد.";
+                return "رمز عبور باید حداقل از ۸ کاراکتر تشکیل شده باشد";
             }
 
             var passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])";
 
             if (!Regex.Match(request.Password, passwordRegex, RegexOptions.None).Success)
             {
-                return "رمز عبور باید شامل حرف بزرگ، حرف کوچک، عدد و کاراکتر خاص باشد.";
+                return "رمز عبور باید شامل حرف بزرگ، حرف کوچک، عدد و کاراکتر خاص باشد";
             }
 
             if (request.Password != request.ConfirmPassword)
@@ -107,26 +113,26 @@ namespace EndPoint.Site.Controllers
             if (string.IsNullOrWhiteSpace(loginViewModel.Email) ||
                 string.IsNullOrWhiteSpace(loginViewModel.Password))
             {
-                return "لطفا تمامی موارد را ارسال نمایید.";
+                return "لطفا تمامی موارد را ارسال نمایید";
             }
 
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
 
             if (!Regex.Match(loginViewModel.Email, emailRegex, RegexOptions.IgnoreCase).Success)
             {
-                return "ایمیل خود را به درستی وارد نمایید.";
+                return "ایمیل خود را به درستی وارد نمایید";
             }
 
             if (loginViewModel.Password.Length < 8)
             {
-                return "رمز عبور باید حداقل از ۸ کاراکتر تشکیل شده باشد.";
+                return "رمز عبور باید حداقل از ۸ کاراکتر تشکیل شده باشد";
             }
 
             var passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
 
             if (!Regex.Match(loginViewModel.Password, passwordRegex, RegexOptions.None).Success)
             {
-                return "رمز عبور باید شامل حرف بزرگ، حرف کوچک، عدد و کاراکتر خاص باشد.";
+                return "رمز عبور باید شامل حرف بزرگ، حرف کوچک، عدد و کاراکتر خاص باشد";
             }
 
             return null;

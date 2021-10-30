@@ -21,8 +21,7 @@ namespace WebSite.Application.Services.Users.Commands.Register
         {
             var user = new User
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
+                Name = request.Name,
                 Email = request.Email,
                 UserName = request.Email,
             };
@@ -32,7 +31,7 @@ namespace WebSite.Application.Services.Users.Commands.Register
             if (result.Succeeded)
             {
                 signInManager.SignOutAsync();
-                return new ResultDto(true, "ثبت‌نام با موفقیت انجام شد.");
+                return new ResultDto(true, "ثبت‌نام با موفقیت انجام شد");
             }
 
             var errorMessage = string.Join("\n", result.Errors.Select(x => x.Description));
