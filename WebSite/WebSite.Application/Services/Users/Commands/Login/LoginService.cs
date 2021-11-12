@@ -22,19 +22,19 @@ namespace WebSite.Application.Services.Users.Commands.Login
 
             if (user == null)
             {
-                return new ResultDto(false, "Email doesn't exist.");
+                return new ResultDto(false, "کاربری با این ایمیل موجود نیست");
             }
 
             signInManager.SignOutAsync();
 
-            var result = signInManager.PasswordSignInAsync(user, request.Password, request.IsPersistent, true).Result;
+            var result = signInManager.PasswordSignInAsync(user, request.Password, true, true).Result;
 
             if (result.Succeeded)
             {
-                return new ResultDto(true, "Login Successful.");
+                return new ResultDto(true, "ورود با موفقیت انجام شد");
             }
 
-            return new ResultDto(false, "Email and password don't match.");
+            return new ResultDto(false, "رمز عبور نادرست است");
         }
     }
 }
