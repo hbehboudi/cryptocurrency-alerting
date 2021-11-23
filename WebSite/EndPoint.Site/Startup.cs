@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebSite.Application.Interfaces.Contexts;
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Email;
-using WebSite.Application.Services.Sms;
 using WebSite.Application.Services.Users.FacadPattern;
 using WebSite.Domain.Entities.Users;
 using WebSite.Persistence.Contexts;
@@ -40,7 +34,6 @@ namespace EndPoint.Site
 
             services.AddScoped<IUserFacad, UserFacad>();
             services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<ISmsService, SmsService>();
             services.AddScoped<IDataBaseContext, DataBaseContext>();
 
             services.AddIdentity<User, IdentityRole>()

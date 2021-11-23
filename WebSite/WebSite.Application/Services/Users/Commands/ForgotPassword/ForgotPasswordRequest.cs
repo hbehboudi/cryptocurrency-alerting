@@ -4,15 +4,7 @@
     {
         public string Email { get; }
 
-        public string PhoneNumber { get; }
-
-        public bool SendByEmail { get; }
-
-        public ForgotPasswordRequest(string email, string phoneNumber, bool sendByEmail)
-        {
+        public ForgotPasswordRequest(string email) =>
             Email = email;
-            PhoneNumber = phoneNumber;
-            SendByEmail = sendByEmail;
-        }
     }
 }

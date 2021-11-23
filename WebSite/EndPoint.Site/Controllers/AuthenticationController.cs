@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using WebSite.Application.Interfaces.FacadPatterns;
+using WebSite.Application.Services.Users.Commands.ForgotPassword;
 using WebSite.Application.Services.Users.Commands.Login;
 using WebSite.Application.Services.Users.Commands.Register;
 using WebSite.Common.Dto;
@@ -60,6 +61,28 @@ namespace EndPoint.Site.Controllers
         }
 
         [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel forgotPasswordViewModel)
+        {
+            var error = Validate(forgotPasswordViewModel);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                return Json(new ResultDto(false, error));
+            }
+
+            var forgotPasswordRequest = new ForgotPasswordRequest(forgotPasswordViewModel.Email);
+            var forgotPasswordResult = userFacad.ForgotPasswordService.Execute(forgotPasswordRequest);
+
+            return Json(forgotPasswordResult);
+        }
+
+        [HttpGet]
         public IActionResult Logout()
         {
             userFacad.LogoutService.Execute();
@@ -78,7 +101,7 @@ namespace EndPoint.Site.Controllers
 
             if (User.Identity.IsAuthenticated == true)
             {
-                return "شما قبلا ثبت نام کرده‌اید";
+                return "شما قبلا ثبت‌نام کرده‌اید";
             }
 
             string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
@@ -133,6 +156,23 @@ namespace EndPoint.Site.Controllers
             if (!Regex.Match(loginViewModel.Password, passwordRegex, RegexOptions.None).Success)
             {
                 return "رمز عبور باید شامل حرف بزرگ، حرف کوچک، عدد و کاراکتر خاص باشد";
+            }
+
+            return null;
+        }
+
+        public string Validate(ForgotPasswordViewModel forgotPasswordViewModel)
+        {
+            if (string.IsNullOrWhiteSpace(forgotPasswordViewModel.Email))
+            {
+                return "لطفا تمامی موارد را ارسال نمایید";
+            }
+
+            string emailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Z0-9.-]+\.[A-Z]{2,}$";
+
+            if (!Regex.Match(forgotPasswordViewModel.Email, emailRegex, RegexOptions.IgnoreCase).Success)
+            {
+                return "ایمیل خود را به درستی وارد نمایید";
             }
 
             return null;

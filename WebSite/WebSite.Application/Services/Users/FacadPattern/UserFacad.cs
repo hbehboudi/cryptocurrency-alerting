@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using WebSite.Application.Interfaces.Contexts;
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Email;
-using WebSite.Application.Services.Sms;
 using WebSite.Application.Services.Users.Commands.EditProfile;
 using WebSite.Application.Services.Users.Commands.ForgotPassword;
 using WebSite.Application.Services.Users.Commands.Login;
@@ -21,10 +19,6 @@ namespace WebSite.Application.Services.Users.FacadPattern
 
         private readonly IEmailService emailService;
 
-        private readonly ISmsService smsService;
-
-        private readonly IDataBaseContext dataBaseContext;
-
         private IRegisterService registerService;
 
         private ILoginService loginService;
@@ -38,13 +32,11 @@ namespace WebSite.Application.Services.Users.FacadPattern
         private IGetProfileService getProfileService;
 
         public UserFacad(UserManager<User> userManager, SignInManager<User> signInManager,
-            IEmailService emailService, ISmsService smsService, IDataBaseContext dataBaseContext)
+            IEmailService emailService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailService = emailService;
-            this.smsService = smsService;
-            this.dataBaseContext = dataBaseContext;
         }
 
         public IRegisterService RegisterService
@@ -75,7 +67,7 @@ namespace WebSite.Application.Services.Users.FacadPattern
         {
             get
             {
-                return forgotPasswordService ??= new ForgotPasswordService(userManager, emailService, smsService, dataBaseContext);
+                return forgotPasswordService ??= new ForgotPasswordService(userManager, emailService);
             }
         }
 
