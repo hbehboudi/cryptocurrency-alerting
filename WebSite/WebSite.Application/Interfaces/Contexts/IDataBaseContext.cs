@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
+using WebSite.Domain.Entities.Rules;
 using WebSite.Domain.Entities.Users;
 
 namespace WebSite.Application.Interfaces.Contexts
@@ -8,6 +9,8 @@ namespace WebSite.Application.Interfaces.Contexts
     public interface IDataBaseContext
     {
         DbSet<User> Users { get; set; }
+
+        DbSet<Rule> Rules { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
 
