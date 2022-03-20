@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using WebSite.Application.Interfaces.Contexts;
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Email;
+using WebSite.Application.Services.Rules.FacadPattern;
 using WebSite.Application.Services.Users.FacadPattern;
 using WebSite.Domain.Entities.Users;
 using WebSite.Persistence.Contexts;
@@ -28,11 +29,10 @@ namespace EndPoint.Site
         {
             services.AddControllersWithViews();
 
-            services.AddScoped<IUserFacad, UserFacad>();
-
             services.AddDbContext<DataBaseContext>(p => p.UseSqlServer(Configuration["ConnectionString"]));
 
             services.AddScoped<IUserFacad, UserFacad>();
+            services.AddScoped<IRuleFacad, RuleFacad>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDataBaseContext, DataBaseContext>();
 

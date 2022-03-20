@@ -17,6 +17,7 @@ namespace WebSite.Persistence.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Rule>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<Rule>().HasIndex(u => u.Name).IsUnique();
         }
     }
 }
