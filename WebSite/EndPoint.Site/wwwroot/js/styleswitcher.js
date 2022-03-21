@@ -5,7 +5,7 @@ function addSwitcher() {
         '    <div class="bg-overlay"></div>\n' +
         '    <a class="sidebar-right-trigger wave-effect wave-effect-x shadow-lg" data-toggle="tooltip" data-placement="right"\n' +
         '       data-original-title="Change Layout" href="javascript:void(0);"><span><i\n' +
-        '            class="fa fa-cog fa-spin"></i></span><span class="text">تنظیم</span></a>\n' +
+        '            class="fa fa-cog fa-spin"></i></span><span class="text">تنظیمات</span></a>\n' +
         '    <div class="sidebar-right-inner"><h4>ظاهر مورد نظر خودتو بساز <a onclick="removeCustomSet()" \n' +
         '                                                            class="btn btn-primary btn-rounded btn-sm pull-right">حالت پیش فرض</a></h4>\n' +
         '        <div class="admin-settings">\n' +

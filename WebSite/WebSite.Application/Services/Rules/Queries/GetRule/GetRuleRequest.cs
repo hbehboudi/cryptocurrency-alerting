@@ -6,16 +6,13 @@
 
         public int Size { get; }
 
-        public string SearchValue { get; }
-
         public string Owner { get; }
 
-        public GetRuleRequest(string owner, int page, int size, string searchValue)
+        public GetRuleRequest(string owner, int page, int size)
         {
             Owner = owner;
             Page = page;
             Size = size;
-            SearchValue = searchValue;
         }
     }
 }

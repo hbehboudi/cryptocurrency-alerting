@@ -31,7 +31,7 @@ namespace WebSite.Application.Services.Rules.Commands.DeleteRule
 
             dataBaseContext.SaveChanges();
 
-            return new ResultDto(true, "Rule deleted successfully.");
+            return new ResultDto(true, "قاعده با موفقیت حذف شد.");
         }
     }
 }

@@ -14,9 +14,10 @@ namespace WebSite.Application.Services.Rules.Commands.AddRule
 
         public ResultDto Execute(AddRuleRequest request)
         {
-            var audioCollection = dataBaseContext.Rules.FirstOrDefault(x => x.Name == request.Name);
+            var oldRule = dataBaseContext.Rules
+                .FirstOrDefault(x => x.Name == request.Name && x.Owner == request.Owner);
 
-            if (audioCollection != null)
+            if (oldRule != null)
             {
                 return new ResultDto(false, "قاعده‌ای با این نام وجود دارد.");
             }

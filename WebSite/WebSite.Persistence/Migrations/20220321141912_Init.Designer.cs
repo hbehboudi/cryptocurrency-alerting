@@ -10,7 +10,7 @@ using WebSite.Persistence.Contexts;
 namespace WebSite.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220320204727_Init")]
+    [Migration("20220321141912_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,7 +191,7 @@ namespace WebSite.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Owner")
                         .IsRequired()
@@ -205,9 +205,6 @@ namespace WebSite.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Rules");
                 });
