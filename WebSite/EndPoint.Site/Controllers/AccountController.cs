@@ -1,4 +1,5 @@
-﻿using EndPoint.Site.Models.ViewModels.Authentication;
+﻿using EndPoint.Site.Models.ViewModels.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using WebSite.Application.Interfaces.FacadPatterns;
@@ -9,11 +10,12 @@ using WebSite.Common.Dto;
 
 namespace EndPoint.Site.Controllers
 {
-    public class AuthenticationController : Controller
+    [AllowAnonymous]
+    public class AccountController : Controller
     {
         private readonly IUserFacad userFacad;
 
-        public AuthenticationController(IUserFacad userFacad) =>
+        public AccountController(IUserFacad userFacad) =>
             this.userFacad = userFacad;
 
         [HttpGet]

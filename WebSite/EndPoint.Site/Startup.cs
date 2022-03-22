@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,12 @@ namespace EndPoint.Site
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<DataBaseContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddMvc(options =>
+            {
+                // This pushes users to login if not authenticated
+                options.Filters.Add(new AuthorizeFilter());
+            });
 
         }
 

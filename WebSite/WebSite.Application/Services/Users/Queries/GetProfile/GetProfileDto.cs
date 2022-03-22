@@ -8,17 +8,11 @@
 
         public string Name { get; }
 
-        public bool IsPublisher { get; }
-
-        public bool IsPremium { get; }
-
-        public GetProfileDto(string email, string phoneNumber, string name, bool isPublisher, bool isPremium)
+        public GetProfileDto(string email, string phoneNumber, string name)
         {
             Email = email;
             PhoneNumber = phoneNumber;
             Name = name;
-            IsPublisher = isPublisher;
-            IsPremium = isPremium;
         }
     }
 }
