@@ -14,16 +14,11 @@ namespace WebSite.Application.Services.Rules.Commands.DeleteRule
 
         public ResultDto Execute(DeleteRuleRequest request)
         {
-            var rule = dataBaseContext.Rules.FirstOrDefault(x => x.Id == request.Id);
+            var rule = dataBaseContext.Rules.FirstOrDefault(x => x.Id == request.Id && x.Owner == request.Owner);
 
             if (rule == null)
             {
                 return new ResultDto(false, "Rule is not available.");
-            }
-
-            if (rule.Owner != request.Owner)
-            {
-                return new ResultDto(false, "User access is not allowed.");
             }
 
             rule.IsDeleted = true;
@@ -31,7 +26,7 @@ namespace WebSite.Application.Services.Rules.Commands.DeleteRule
 
             dataBaseContext.SaveChanges();
 
-            return new ResultDto(true, "Rule deleted successfully.");
+            return new ResultDto(true, "قاعده با موفقیت حذف شد.");
         }
     }
 }

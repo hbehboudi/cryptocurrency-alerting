@@ -1,0 +1,133 @@
+﻿@{
+    ViewData["Title"] = "افزودن قاعده";
+    Layout = "_Layout";
+}
+
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">قاعده‌ها</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">ایجاد قاعده</a></li>
+            </ol>
+        </div>
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>نام قاعده</label>
+                                    <input type="text" class="form-control" id="Name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>اندیکاتور</label>
+                                    <select id="Indicator" class="form-control default-select">
+                                        <option>SMA</option>
+                                        <option>WMA</option>
+                                        <option>EMA</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>نماد</label>
+                                    <select id="Symbol" class="form-control default-select">
+                                        <option>ETHBTC</option>
+                                        <option>LTCBTC</option>
+                                        <option>BNBBTC</option>
+                                        <option>NEOBTC</option>
+                                        <option>QTUMETH</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>نوع قیمت ۱</label>
+                                    <select id="MorePriceType" class="form-control default-select">
+                                        <option>Open</option>
+                                        <option>High</option>
+                                        <option>Low</option>
+                                        <option>Close</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>نوع قیمت ۲</label>
+                                    <select id="LessPriceType" class="form-control default-select">
+                                        <option>Open</option>
+                                        <option>High</option>
+                                        <option>Low</option>
+                                        <option>Close</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>دوره تناوب قیمت ۱</label>
+                                    <input id="MorePeriod" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>دوره تناوب قیمت ۲</label>
+                                    <input id="LessPeriod" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>توضیحات</label>
+                                    <textarea class="form-control" rows="4" id="Description"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" onclick="AddRule()" class="btn btn-primary">افزودن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function AddRule() {
+            var Name = $("#Name").val();
+            var Symbol = $("#Symbol").val();
+            var Description = $("#Description").val();
+            var Indicator = $("#Indicator").val();
+            var MorePriceType = $("#MorePriceType").val();
+            var LessPriceType = $("#LessPriceType").val();
+            var MorePeriod = $("#MorePeriod").val();
+            var LessPeriod = $("#LessPeriod").val();
+
+            var postData = {
+                'Name': Name,
+                'Symbol': Symbol,
+                'Description': Description,
+                'Indicator': Indicator,
+                'MorePriceType': MorePriceType,
+                'LessPriceType': LessPriceType,
+                'MorePeriod': MorePeriod,
+                'LessPeriod': LessPeriod
+            };
+
+            $.ajax({
+                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'json',
+                type: "POST",
+                url: "Add",
+                data: postData,
+                success: function (data) {
+                    if (data.isSuccess == true) {
+                        swal.fire('موفق!', data.message, 'success').then(
+                            function (isConfirm) {
+                                window.location.replace("/rule/index");
+                            }
+                        );
+                    }
+                    else {
+                        swal.fire('هشدار!', data.message, 'warning');
+                    }
+                },
+                error: function (request, status, error) {
+                    swal.fire('هشدار!', request.responseText, 'warning');
+                }
+            });
+        }
+    </script>
+}

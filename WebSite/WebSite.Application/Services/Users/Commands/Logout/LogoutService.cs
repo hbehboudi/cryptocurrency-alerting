@@ -14,7 +14,7 @@ namespace WebSite.Application.Services.Users.Commands.Logout
         public ResultDto Execute()
         {
             signInManager.SignOutAsync();
-            return new ResultDto(true, "Logout Successful.");
+            return new ResultDto(true, "شما با موفقیت از حساب کاربری خود خارج شدید.");
         }
     }
 }

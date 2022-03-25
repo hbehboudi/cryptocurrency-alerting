@@ -13,16 +13,11 @@ namespace WebSite.Application.Services.Rules.Commands.EditRule
 
         public ResultDto Execute(EditRuleRequest request)
         {
-            var rule = dataBaseContext.Rules.FirstOrDefault(x => x.Id == request.Id);
+            var rule = dataBaseContext.Rules.FirstOrDefault(x => x.Id == request.Id && x.Owner == request.Owner);
 
             if (rule == null)
             {
                 return new ResultDto(false, "Rule is not available.");
-            }
-
-            if (rule.Owner != request.Owner)
-            {
-                return new ResultDto(false, "User access is not allowed.");
             }
 
             rule.Name = request.Name;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using WebSite.Application.Interfaces.Contexts;
 using WebSite.Common.Dto;
 using WebSite.Common.Util;
@@ -22,20 +18,13 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
 
             var user = dataBaseContext.Users.FirstOrDefault(x => x.UserName == request.Owner);
 
-            if (!string.IsNullOrEmpty(request.SearchValue))
+            if (user == null)
             {
-                rules = rules.Where(x =>
-                    x.Name.ToLower().Contains(request.SearchValue) ||
-                    x.Description.ToLower().Contains(request.SearchValue) ||
-                    x.Owner.ToLower().Contains(request.SearchValue));
+                return new ResultDto<ResultGetRuleDto>(false, "No user available.", null);
             }
 
             var getRuleDtos = rules
-                .Where(x => string.IsNullOrEmpty(request.SearchValue) ||
-                    x.Name.ToLower().Contains(request.SearchValue) ||
-                    x.Description.ToLower().Contains(request.SearchValue) ||
-                    x.Symbol.ToLower().Contains(request.SearchValue) ||
-                    x.Indicator.ToLower().Contains(request.SearchValue))
+                .Where(x => x.Owner.Equals(user.UserName))
                 .ToPaged(request.Page, request.Size, out var rowsCount)
                 .Select(x => new GetRuleDto(x.Id, x.Owner, x.Name, x.Symbol, x.Description, x.Indicator,
                     x.MorePriceType, x.LessPriceType, x.MorePeriod, x.LessPeriod))
@@ -44,6 +33,29 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
             var result = new ResultGetRuleDto(rowsCount, getRuleDtos);
 
             return new ResultDto<ResultGetRuleDto>(true, "List returned successfully.", result);
+        }
+
+        public ResultDto<GetRuleDto> Execute(GetItemRequest request)
+        {
+            var user = dataBaseContext.Users.FirstOrDefault(x => x.UserName == request.Owner);
+
+            if (user == null)
+            {
+                return new ResultDto<GetRuleDto>(false, "No user available.", null);
+            }
+
+            var rule = dataBaseContext.Rules.AsQueryable()
+                .FirstOrDefault(x => x.Id == request.Id && x.Owner == request.Owner);
+
+            if (rule == null)
+            {
+                return new ResultDto<GetRuleDto>(false, "Rule is not available.", null);
+            }
+
+            var getRuleDto = new GetRuleDto(rule.Id, rule.Owner, rule.Name, rule.Symbol, rule.Description,
+                rule.Indicator, rule.MorePriceType, rule.LessPriceType, rule.MorePeriod, rule.LessPeriod);
+
+            return new ResultDto<GetRuleDto>(true, "Rule returned successfully.", getRuleDto);
         }
     }
 }

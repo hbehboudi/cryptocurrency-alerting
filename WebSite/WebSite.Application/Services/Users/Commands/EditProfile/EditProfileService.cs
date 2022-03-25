@@ -16,6 +16,11 @@ namespace WebSite.Application.Services.Users.Commands.EditProfile
         {
             var user = userManager.FindByNameAsync(request.Email).Result;
 
+            if (user == null)
+            {
+                return new ResultDto(false, "کاربری با این ایمیل موجود نیست");
+            }
+
             user.Name = request.Name;
             user.PhoneNumber = request.PhoneNumber;
 

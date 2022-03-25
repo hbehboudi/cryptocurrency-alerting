@@ -1,5 +1,3 @@
-using System;
-
 namespace EndPoint.Site.Models
 {
     public class ErrorViewModel

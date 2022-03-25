@@ -19,6 +19,13 @@ namespace WebSite.Application.Services.Users.Commands.Register
 
         public ResultDto Execute(RegisterRequest request)
         {
+            var oldUser = userManager.FindByNameAsync(request.Email).Result;
+
+            if (oldUser != null)
+            {
+                return new ResultDto(false, "کاربری با این ایمیل موجود است.");
+            }
+
             var user = new User
             {
                 Name = request.Name,
