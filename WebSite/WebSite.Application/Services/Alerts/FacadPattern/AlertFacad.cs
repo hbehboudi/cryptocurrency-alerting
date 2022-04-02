@@ -1,5 +1,6 @@
 ﻿using WebSite.Application.Interfaces.Contexts;
 using WebSite.Application.Interfaces.FacadPatterns;
+using WebSite.Application.Services.Alerts.Commands.AddAlert;
 using WebSite.Application.Services.Alerts.Queries.GetAlert;
 
 namespace WebSite.Application.Services.Alerts.FacadPattern
@@ -10,6 +11,8 @@ namespace WebSite.Application.Services.Alerts.FacadPattern
 
         private IGetAlertService getAlertService;
 
+        private IAddAlertService addAlertService;
+
         public AlertFacad(IDataBaseContext dataBaseContext) =>
             this.dataBaseContext = dataBaseContext;
 
@@ -18,6 +21,14 @@ namespace WebSite.Application.Services.Alerts.FacadPattern
             get
             {
                 return getAlertService ??= new GetAlertService(dataBaseContext);
+            }
+        }
+
+        public IAddAlertService AddAlertService
+        {
+            get
+            {
+                return addAlertService ??= new AddAlertService(dataBaseContext);
             }
         }
     }

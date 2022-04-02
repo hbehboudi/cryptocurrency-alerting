@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using WebSite.Application.Interfaces.Contexts;
 using WebSite.Common.Dto;
 using WebSite.Common.Util;
-using WebSite.Domain.Entities.Alert;
 
 namespace WebSite.Application.Services.Alerts.Queries.GetAlert
 {
@@ -35,16 +33,6 @@ namespace WebSite.Application.Services.Alerts.Queries.GetAlert
                 .ToList();
 
             var result = new ResultGetAlertListDto(rowsCount, resultGetAlertDtos);
-
-            var alert = new Alert
-            {
-                RuleId = 2,
-                Price = 1,
-                Time = DateTime.Now
-            };
-
-            dataBaseContext.Alerts.Add(alert);
-            dataBaseContext.SaveChanges();
 
             return new ResultDto<ResultGetAlertListDto>(true, "List returned successfully.", result);
         }
