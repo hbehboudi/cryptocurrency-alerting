@@ -1,0 +1,20 @@
+services:
+  web-site:
+    image: cryptocurrency-alerting.web-site 
+    ports:
+      - "8000:80"
+    depends_on:
+      - sqlserverdb
+
+  sqlserverdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    ports:
+      - 1450:1433
+    environment:
+      SA_PASSWORD: "SQLServer19"
+      ACCEPT_EULA: "Y"
+
+volumes:
+  sqlvolume:
