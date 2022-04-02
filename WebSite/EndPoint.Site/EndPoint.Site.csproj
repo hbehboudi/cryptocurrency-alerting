@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MD.PersianDateTime.Core" Version="2.3.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

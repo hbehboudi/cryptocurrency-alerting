@@ -2,17 +2,14 @@
 {
     public class GetRuleRequest
     {
-        public int Page { get; }
-
-        public int Size { get; }
+        public long Id { get; }
 
         public string Owner { get; }
 
-        public GetRuleRequest(string owner, int page, int size)
+        public GetRuleRequest(string owner, long id)
         {
             Owner = owner;
-            Page = page;
-            Size = size;
+            Id = id;
         }
     }
 }

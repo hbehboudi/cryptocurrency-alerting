@@ -57,9 +57,9 @@ namespace EndPoint.Site.Controllers
                 return Json(new ResultDto(false, "No user available."));
             }
 
-            var getRuleRequest = new GetRuleRequest(owner, 0, int.MaxValue);
+            var getRuleListRequest = new GetRuleListRequest(owner, 0, int.MaxValue);
 
-            var resultDto = ruleFacad.GetRuleService.Execute(getRuleRequest);
+            var resultDto = ruleFacad.GetRuleService.Execute(getRuleListRequest);
 
             return View(resultDto.Data);
         }
@@ -91,7 +91,7 @@ namespace EndPoint.Site.Controllers
                 return Json(new ResultDto(false, "No user available."));
             }
 
-            var getRuleRequest = new GetItemRequest(owner, id);
+            var getRuleRequest = new GetRuleRequest(owner, id);
 
             var resultDto = ruleFacad.GetRuleService.Execute(getRuleRequest);
 

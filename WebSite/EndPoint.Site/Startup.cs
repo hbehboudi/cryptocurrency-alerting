@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebSite.Application.Interfaces.Contexts;
 using WebSite.Application.Interfaces.FacadPatterns;
+using WebSite.Application.Services.Alerts.FacadPattern;
 using WebSite.Application.Services.Email;
 using WebSite.Application.Services.Rules.FacadPattern;
 using WebSite.Application.Services.Users.FacadPattern;
@@ -34,6 +35,7 @@ namespace EndPoint.Site
 
             services.AddScoped<IUserFacad, UserFacad>();
             services.AddScoped<IRuleFacad, RuleFacad>();
+            services.AddScoped<IAlertFacad, AlertFacad>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IDataBaseContext, DataBaseContext>();
 
@@ -74,7 +76,7 @@ namespace EndPoint.Site
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Rule}/{action=Index}");
             });
         }
     }

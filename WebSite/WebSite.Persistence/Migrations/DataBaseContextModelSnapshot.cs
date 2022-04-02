@@ -149,6 +149,39 @@ namespace WebSite.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WebSite.Domain.Entities.Alert.Alert", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<long>("RuleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Alerts");
+                });
+
             modelBuilder.Entity("WebSite.Domain.Entities.Rules.Rule", b =>
                 {
                     b.Property<long>("Id")
