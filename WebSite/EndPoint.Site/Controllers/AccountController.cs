@@ -88,7 +88,7 @@ namespace EndPoint.Site.Controllers
         public IActionResult Logout()
         {
             userFacad.LogoutService.Execute();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         public string Validate(RegisterViewModel request)

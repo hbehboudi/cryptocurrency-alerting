@@ -6,11 +6,11 @@ function addSwitcher() {
         '    <a class="sidebar-right-trigger wave-effect wave-effect-x shadow-lg" data-toggle="tooltip" data-placement="right"\n' +
         '       data-original-title="Change Layout" href="javascript:void(0);"><span><i\n' +
         '            class="fa fa-cog fa-spin"></i></span><span class="text">تنظیمات</span></a>\n' +
-        '    <div class="sidebar-right-inner"><h4>ظاهر مورد نظر خودتو بساز <a onclick="removeCustomSet()" \n' +
+        '    <div class="sidebar-right-inner"><h4>تنظیمات پس‌زمینه <a onclick="removeCustomSet()" \n' +
         '                                                            class="btn btn-primary btn-rounded btn-sm pull-right">حالت پیش فرض</a></h4>\n' +
         '        <div class="admin-settings">\n' +
         '            <div class="row">\n' +
-        '                <div class="col-sm-12"><p>بک گروند</p> <select class="default-select form-control" id="theme_version"\n' +
+        '                <div class="col-sm-12"><p>پس‌زمینه</p> <select class="default-select form-control" id="theme_version"\n' +
         '                                                                 name="theme_version">\n' +
         '                    <option value="light">روشن</option>\n' +
         '                    <option value="dark">تیره</option>\n' +
@@ -48,41 +48,7 @@ function addSwitcher() {
         '                                class="chk-col-primary filled-in" id="primary_color_15" name="primary_bg" type="radio"\n' +
         '                                value="color_15"> <label for="primary_color_15"></label> </span></div>\n' +
         '                </div>\n' +
-        '                <div class="col-sm-6"><p>رنگ Nav Header</p>\n' +
-        '                    <div><span> <input class="chk-col-primary filled-in" id="nav_header_color_1"\n' +
-        '                                       name="navigation_header" type="radio" value="color_1"> <label\n' +
-        '                            for="nav_header_color_1" class="bg-label-pattern"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_2" name="navigation_header"\n' +
-        '                            type="radio" value="color_2"> <label for="nav_header_color_2"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_3" name="navigation_header"\n' +
-        '                            type="radio" value="color_3"> <label for="nav_header_color_3"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_4" name="navigation_header"\n' +
-        '                            type="radio" value="color_4"> <label for="nav_header_color_4"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_5" name="navigation_header"\n' +
-        '                            type="radio" value="color_5"> <label for="nav_header_color_5"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_6" name="navigation_header"\n' +
-        '                            type="radio" value="color_6"> <label for="nav_header_color_6"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_7" name="navigation_header"\n' +
-        '                            type="radio" value="color_7"> <label for="nav_header_color_7"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_8" name="navigation_header"\n' +
-        '                            type="radio" value="color_8"> <label for="nav_header_color_8"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_9" name="navigation_header"\n' +
-        '                            type="radio" value="color_9"> <label for="nav_header_color_9"></label> </span> <span> <input\n' +
-        '                            class="chk-col-primary filled-in" id="nav_header_color_10" name="navigation_header"\n' +
-        '                            type="radio" value="color_10"> <label for="nav_header_color_10"></label> </span>\n' +
-        '                        <span> <input class="chk-col-primary filled-in" id="nav_header_color_11"\n' +
-        '                                      name="navigation_header" type="radio" value="color_11"> <label\n' +
-        '                                for="nav_header_color_11"></label> </span> <span> <input\n' +
-        '                                class="chk-col-primary filled-in" id="nav_header_color_12" name="navigation_header"\n' +
-        '                                type="radio" value="color_12"> <label for="nav_header_color_12"></label> </span> <span> <input\n' +
-        '                                class="chk-col-primary filled-in" id="nav_header_color_13" name="navigation_header"\n' +
-        '                                type="radio" value="color_13"> <label for="nav_header_color_13"></label> </span> <span> <input\n' +
-        '                                class="chk-col-primary filled-in" id="nav_header_color_14" name="navigation_header"\n' +
-        '                                type="radio" value="color_14"> <label for="nav_header_color_14"></label> </span> <span> <input\n' +
-        '                                class="chk-col-primary filled-in" id="nav_header_color_15" name="navigation_header"\n' +
-        '                                type="radio" value="color_15"> <label for="nav_header_color_15"></label> </span></div>\n' +
-        '                </div>\n' +
-        '                <div class="col-sm-6"><p>رنگ Header</p>\n' +
+        '                <div class="col-sm-6"><p>رنگ سربرگ</p>\n' +
         '                    <div><span> <input class="chk-col-primary filled-in" id="header_color_1" name="header_bg"\n' +
         '                                       type="radio" value="color_1"> <label for="header_color_1"\n' +
         '                                                                            class="bg-label-pattern"></label> </span>\n' +
@@ -115,7 +81,7 @@ function addSwitcher() {
         '                                class="chk-col-primary filled-in" id="header_color_15" name="header_bg" type="radio"\n' +
         '                                value="color_15"> <label for="header_color_15"></label> </span></div>\n' +
         '                </div>\n' +
-        '                <div class="col-sm-6"><p>رنگ Sidebar</p>\n' +
+        '                <div class="col-sm-6"><p>رنگ نوار کناری</p>\n' +
         '                    <div><span> <input class="chk-col-primary filled-in" id="sidebar_color_1" name="sidebar_bg"\n' +
         '                                       type="radio" value="color_1"> <label for="sidebar_color_1"\n' +
         '                                                                            class="bg-label-pattern"></label> </span>\n' +
@@ -155,28 +121,14 @@ function addSwitcher() {
         '                </select></div>\n' +
         '                <div class="col-sm-6"><p>نوع Header</p> <select class="default-select form-control"\n' +
         '                                                                     id="header_position" name="header_position">\n' +
-        '                    <option value="static">ایستا</option>\n' +
         '                    <option value="fixed">ثابت</option>\n' +
+        '                    <option value="static">متحرک</option>\n' +
         '                </select></div>\n' +
-        '                <div class="col-sm-6"><p>نوع نمایش Sidebar</p> <select class="default-select form-control" id="sidebar_style"\n' +
+        '                <div class="col-sm-6"><p>نوع نمایش نوار کناری</p> <select class="default-select form-control" id="sidebar_style"\n' +
         '                                                             name="sidebar_style">\n' +
         '                    <option value="full">کامل</option>\n' +
         '                    <option value="mini">کوچک</option>\n' +
         '                    <option value="compact">جمع و جور</option>\n' +
-        '                    <option value="modern">مدرن</option>\n' +
-        '                    <option value="overlay">پنهان (نمایش روی صفحه)</option>\n' +
-        '                    <option value="icon-hover">فقط آیکن</option>\n' +
-        '                </select></div>\n' +
-        '                <div class="col-sm-6"><p>نوع Sidebar</p> <select class="default-select form-control"\n' +
-        '                                                                      id="sidebar_position" name="sidebar_position">\n' +
-        '                    <option value="static">ایستا</option>\n' +
-        '                    <option value="fixed">ثابت</option>\n' +
-        '                </select></div>\n' +
-        '                <div class="col-sm-6"><p>اندازه کادر صفحه</p> <select class="default-select form-control" id="container_layout"\n' +
-        '                                                               name="container_layout">\n' +
-        '                    <option value="wide">پهن</option>\n' +
-        '                    <option value="boxed">باکس</option>\n' +
-        '                    <option value="wide-boxed">پهن و باکس</option>\n' +
         '                </select></div>\n' +
         '            </div>\n' +
         '        </div>\n' +
@@ -354,7 +306,7 @@ function addSwitcher() {
     });
 
     //change the nav-header background controller
-    $('input[name="navigation_header"]').on('click', function () {
+    $('input[name="sidebar_bg"]').on('click', function () {
         body.attr('data-nav-headerbg', this.value);
         setCookie('navheaderBg', this.value);
         localStorage.setItem('navheaderBg' , this.value);

@@ -1,6 +1,6 @@
 ﻿@addTagHelper *, LazZiya.TagHelpers
 @using WebSite.Application.Services.Rules.Queries.GetRule;
-@model ResultGetRuleDto;
+@model ResultGetRuleListDto;
 @{
     ViewData["Title"] = "لیست قاعده‌ها";
     Layout = "_Layout";
@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var rule in Model.GetRuleDtos)
+                                    @foreach (var rule in Model.ResultGetRuleDtos)
                                     {
                                         <tr>
                                             <td>@rule.Name</td>

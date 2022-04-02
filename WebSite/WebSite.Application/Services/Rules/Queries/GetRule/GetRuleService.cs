@@ -12,7 +12,7 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
         public GetRuleService(IDataBaseContext dataBaseContext) =>
             this.dataBaseContext = dataBaseContext;
 
-        public ResultDto<ResultGetRuleDto> Execute(GetRuleRequest request)
+        public ResultDto<ResultGetRuleListDto> Execute(GetRuleListRequest request)
         {
             var rules = dataBaseContext.Rules.AsQueryable();
 
@@ -20,28 +20,28 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
 
             if (user == null)
             {
-                return new ResultDto<ResultGetRuleDto>(false, "No user available.", null);
+                return new ResultDto<ResultGetRuleListDto>(false, "No user available.", null);
             }
 
-            var getRuleDtos = rules
+            var resultGetRuleDtos = rules
                 .Where(x => x.Owner.Equals(user.UserName))
                 .ToPaged(request.Page, request.Size, out var rowsCount)
-                .Select(x => new GetRuleDto(x.Id, x.Owner, x.Name, x.Symbol, x.Description, x.Indicator,
+                .Select(x => new ResultGetRuleDto(x.Id, x.Owner, x.Name, x.Symbol, x.Description, x.Indicator,
                     x.MorePriceType, x.LessPriceType, x.MorePeriod, x.LessPeriod))
                 .ToList();
 
-            var result = new ResultGetRuleDto(rowsCount, getRuleDtos);
+            var result = new ResultGetRuleListDto(rowsCount, resultGetRuleDtos);
 
-            return new ResultDto<ResultGetRuleDto>(true, "List returned successfully.", result);
+            return new ResultDto<ResultGetRuleListDto>(true, "List returned successfully.", result);
         }
 
-        public ResultDto<GetRuleDto> Execute(GetItemRequest request)
+        public ResultDto<ResultGetRuleDto> Execute(GetRuleRequest request)
         {
             var user = dataBaseContext.Users.FirstOrDefault(x => x.UserName == request.Owner);
 
             if (user == null)
             {
-                return new ResultDto<GetRuleDto>(false, "No user available.", null);
+                return new ResultDto<ResultGetRuleDto>(false, "No user available.", null);
             }
 
             var rule = dataBaseContext.Rules.AsQueryable()
@@ -49,13 +49,13 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
 
             if (rule == null)
             {
-                return new ResultDto<GetRuleDto>(false, "Rule is not available.", null);
+                return new ResultDto<ResultGetRuleDto>(false, "Rule is not available.", null);
             }
 
-            var getRuleDto = new GetRuleDto(rule.Id, rule.Owner, rule.Name, rule.Symbol, rule.Description,
+            var resultGetRuleDto = new ResultGetRuleDto(rule.Id, rule.Owner, rule.Name, rule.Symbol, rule.Description,
                 rule.Indicator, rule.MorePriceType, rule.LessPriceType, rule.MorePeriod, rule.LessPeriod);
 
-            return new ResultDto<GetRuleDto>(true, "Rule returned successfully.", getRuleDto);
+            return new ResultDto<ResultGetRuleDto>(true, "Rule returned successfully.", resultGetRuleDto);
         }
     }
 }

@@ -1,17 +1,40 @@
-﻿using System.Collections.Generic;
-
-namespace WebSite.Application.Services.Rules.Queries.GetRule
+﻿namespace WebSite.Application.Services.Rules.Queries.GetRule
 {
     public class ResultGetRuleDto
     {
-        public List<GetRuleDto> GetRuleDtos { get; }
+        public long Id { get; }
 
-        public int RowsCount { get; }
+        public string Owner { get; }
 
-        public ResultGetRuleDto(int rowsCount, List<GetRuleDto> getRuleDtos)
+        public string Name { get; }
+
+        public string Symbol { get; }
+
+        public string Description { get; }
+
+        public string Indicator { get; }
+
+        public string MorePriceType { get; }
+
+        public string LessPriceType { get; }
+
+        public int MorePeriod { get; }
+
+        public int LessPeriod { get; }
+
+        public ResultGetRuleDto(long id, string owner, string name, string symbol, string description,
+            string indicator, string morePriceType, string lessPriceType, int morePeriod, int lessPeriod)
         {
-            RowsCount = rowsCount;
-            GetRuleDtos = getRuleDtos;
+            Id = id;
+            Owner = owner;
+            Name = name;
+            Symbol = symbol;
+            Description = description;
+            Indicator = indicator;
+            MorePriceType = morePriceType;
+            LessPriceType = lessPriceType;
+            MorePeriod = morePeriod;
+            LessPeriod = lessPeriod;
         }
     }
 }
