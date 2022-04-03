@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Alerts.Commands.AddAlert;
@@ -8,6 +9,7 @@ using WebSite.Common.Dto;
 namespace EndPoint.Site.Controllers.RuleEvaluator
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class RuleEvaluatorController : ControllerBase
     {
@@ -31,7 +33,9 @@ namespace EndPoint.Site.Controllers.RuleEvaluator
                 return new ResultDto(false, "Access Denied");
             }
 
-            var request = new AddAlertRequest(addDto.RuleId, addDto.Price, new DateTime(addDto.Time));
+            var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(addDto.Time).ToLocalTime();
+
+            var request = new AddAlertRequest(addDto.RuleId, addDto.Price, dateTime);
             return alertFacad.AddAlertService.Execute(request);
         }
 
@@ -43,8 +47,7 @@ namespace EndPoint.Site.Controllers.RuleEvaluator
                 return new ResultDto<ResultGetRuleListDto>(false, "Access Denied", null);
             }
 
-            var request = new GetRuleListRequest(getDto.Owner, 0, int.MaxValue);
-            return ruleFacad.GetRuleService.Execute(request);
+            return ruleFacad.GetRuleService.Execute();
         }
     }
 }

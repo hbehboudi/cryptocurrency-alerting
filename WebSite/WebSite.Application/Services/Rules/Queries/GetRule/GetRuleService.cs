@@ -35,6 +35,20 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
             return new ResultDto<ResultGetRuleListDto>(true, "List returned successfully.", result);
         }
 
+        public ResultDto<ResultGetRuleListDto> Execute()
+        {
+            var rules = dataBaseContext.Rules.AsQueryable();
+
+            var resultGetRuleDtos = rules
+                .Select(x => new ResultGetRuleDto(x.Id, x.Owner, x.Name, x.Symbol, x.Description, x.Indicator,
+                    x.MorePriceType, x.LessPriceType, x.MorePeriod, x.LessPeriod))
+                .ToList();
+
+            var result = new ResultGetRuleListDto(resultGetRuleDtos);
+
+            return new ResultDto<ResultGetRuleListDto>(true, "List returned successfully.", result);
+        }
+
         public ResultDto<ResultGetRuleDto> Execute(GetRuleRequest request)
         {
             var user = dataBaseContext.Users.FirstOrDefault(x => x.UserName == request.Owner);
