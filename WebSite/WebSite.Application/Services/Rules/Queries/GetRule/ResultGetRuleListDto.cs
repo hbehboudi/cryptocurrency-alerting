@@ -13,5 +13,11 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
             RowsCount = rowsCount;
             ResultGetRuleDtos = resultGetRuleDtos;
         }
+
+        public ResultGetRuleListDto(List<ResultGetRuleDto> resultGetRuleDtos)
+        {
+            RowsCount = resultGetRuleDtos.Count;
+            ResultGetRuleDtos = resultGetRuleDtos;
+        }
     }
 }

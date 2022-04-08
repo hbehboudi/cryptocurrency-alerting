@@ -78,6 +78,8 @@ namespace EndPoint.Site
                     name: "default",
                     pattern: "{controller=Rule}/{action=Index}");
             });
+
+            app.ApplicationServices.CreateScope().ServiceProvider.GetService<DataBaseContext>().Database.Migrate();
         }
     }
 }

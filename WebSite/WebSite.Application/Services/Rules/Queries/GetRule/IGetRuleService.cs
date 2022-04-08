@@ -6,6 +6,8 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
     {
         ResultDto<ResultGetRuleListDto> Execute(GetRuleListRequest request);
 
+        ResultDto<ResultGetRuleListDto> Execute();
+
         ResultDto<ResultGetRuleDto> Execute(GetRuleRequest request);
     }
 }
