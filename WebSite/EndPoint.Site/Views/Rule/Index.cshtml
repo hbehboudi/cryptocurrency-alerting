@@ -1,0 +1,117 @@
+﻿@addTagHelper *, LazZiya.TagHelpers
+@using WebSite.Application.Services.Rules.Queries.GetRule;
+@model ResultGetRuleListDto;
+@{
+    ViewData["Title"] = "لیست قاعده‌ها";
+    Layout = "_Layout";
+}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">قاعده‌ها</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">مشاهده‌ی قاعده‌ها</a></li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example3" class="display table-responsive-lg">
+                                <thead>
+                                    <tr>
+                                        <th>نام قاعده</th>
+                                        <th>نماد</th>
+                                        <th>اندیکاتور</th>
+                                        <th>نوع قیمت ۱</th>
+                                        <th>نوع قیمت ۲</th>
+                                        <th>دوره‌تناوب ۱</th>
+                                        <th>دوره تناوب ۲</th>
+                                        <th>توضیحات</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var rule in Model.ResultGetRuleDtos)
+                                    {
+                                        <tr>
+                                            <td>@rule.Name</td>
+                                            <td>@rule.Symbol</td>
+                                            <td>@rule.Indicator</td>
+                                            <td>@rule.MorePriceType</td>
+                                            <td>@rule.LessPriceType</td>
+                                            <td>@rule.MorePeriod</td>
+                                            <td>@rule.LessPeriod</td>
+                                            <td>@rule.Description</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a href="~/rule/edit/@rule.Id" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                    <a class="btn btn-danger shadow btn-xs sharp" onclick="DeleteUser('@rule.Id')"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/vendor/bootstrap-datetimepicker/js/moment.js" type="text/javascript"></script>
+    <script src="~/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="~/vendor/datatables/js/jquery.datatables.min.js" type="text/javascript"></script>
+    <script src="~/js/plugins-init/datatables.init.js" type="text/javascript"></script>
+    <script src="~/js/custom.min.js" type="text/javascript"></script>
+
+    <script>
+        function DeleteUser(id) {
+            swal.fire({
+                title: 'حذف قاعده',
+                text: "از حذف قاعده مطمئن هستید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#7cacbe',
+                confirmButtonText: 'بله، قاعده حذف شود.',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.value) {
+                    var postData = {
+                        'id': id,
+                    };
+
+                    $.ajax({
+                        contentType: 'application/x-www-form-urlencoded',
+                        dataType: 'json',
+                        type: "Delete",
+                        url: "Delete",
+                        data: postData,
+                        success: function (data) {
+                            if (data.isSuccess == true) {
+                                swal.fire('موفق!', data.message, 'success')
+                                    .then(function (isConfirm) {
+                                        location.reload();
+                                    });
+                            }
+                            else {
+                                swal.fire('هشدار!', data.message, 'warning');
+                            }
+                        },
+                        error: function (request, status, error) {
+                            swal.fire('هشدار!', request.responseText, 'warning');
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}

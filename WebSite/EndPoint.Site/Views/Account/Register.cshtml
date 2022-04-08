@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "ثبت‌نام";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>صفحه ثبت‌نام</title>
+        <meta name="description" content="Some description for the page" />
+        <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon.png">
+        <link href="~/css/style.css" rel="stylesheet">
+    </head>
+    
+    <body class="h-100">
+        <div class="authincation h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                    <div class="col-md-6 rtl">
+                        <div class="authincation-content">
+                            <div class="row no-gutters">
+                                <div class="col-xl-12">
+                                    <div class="auth-form">
+                                        <div class="text-center mb-3">
+                                            <a href="~/index.html"><img src="~/images/logo-full.png"></a>
+                                        </div>
+                                        <h4 class="text-center mb-4 text-white">ثبت‌نام در سامانه</h4>
+                                        <div>
+                                            <div class="form-group">
+                                                <label class="mb-1 text-white"><strong>نام</strong></label>
+                                                <input type="text" class="form-control input-rounded text-black" id="Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="mb-1 text-white"><strong>ایمیل</strong></label>
+                                                <input type="email" class="form-control input-rounded text-black" id="Email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="mb-1 text-white"><strong>رمز عبور</strong></label>
+                                                <input type="password" class="form-control input-rounded text-black" id="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="mb-1 text-white"><strong>تکرار رمز عبور</strong></label>
+                                                <input type="password" class="form-control input-rounded text-black" id="ConfirmPassword">
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <button type="submit" onclick="RegisterUser()" class="btn bg-white text-primary btn-block btn-rounded">ثبت‌نام</button>
+                                            </div>
+                                        </div>
+                                        <div class="new-account mt-3">
+                                            <p class="text-white mb-0">قبلا ثبت‌نام کرده‌اید؟ <a class="text-white" href="Login">ورود</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link href="~/Sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+        <script src="~/Sweetalert2/sweetalert2.min.js"></script>
+    
+        <script>
+            function RegisterUser() {
+                var Name = $("#Name").val();
+                var Email = $("#Email").val();
+                var Password = $("#Password").val();
+                var ConfirmPassword = $("#ConfirmPassword").val();
+    
+                var postData = {
+                    'Name': Name,
+                    'Email': Email,
+                    'Password': Password,
+                    'ConfirmPassword': ConfirmPassword,
+                };
+    
+                $.ajax({
+                    contentType: 'application/x-www-form-urlencoded',
+                    dataType: 'json',
+                    type: "POST",
+                    url: "Register",
+                    data: postData,
+                    success: function (data) {
+                        if (data.isSuccess == true) {
+                            swal.fire('موفق!', data.message, 'success').then(
+                                function (isConfirm) {
+                                    window.location.replace("Login");
+                                }
+                            );
+                        }
+                        else {
+                            swal.fire('هشدار!', data.message, 'warning');
+                        }
+                    },
+                    error: function (request, status, error) {
+                        swal.fire('هشدار!', request.responseText, 'warning');
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
