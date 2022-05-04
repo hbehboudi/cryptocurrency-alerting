@@ -2,75 +2,76 @@ package edu.sharif.ce.rules_evaluator.model;
 
 import edu.sharif.ce.commons.model.PriceType;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Rule {
+public class Rule implements Serializable {
+
+    private final long id;
     private final String symbol;
-    private final PriceType morePriceType;
-    private final PriceType lessPriceType;
-    private final int morePeriod;
-    private final int lessPeriod;
+    private final PriceType shortPriceType;
+    private final PriceType longPriceType;
+    private final int shortTerm;
+    private final int longTerm;
     private final IndicatorType indicatorType;
 
-    public Rule(String symbol, PriceType morePriceType, PriceType lessPriceType, int morePeriod, int lessPeriod, IndicatorType indicatorType) {
+    public Rule(long id, String symbol, PriceType shortPriceType, PriceType longPriceType, int shortTerm, int longTerm, IndicatorType indicatorType) {
+        this.id = id;
         this.symbol = symbol;
-        this.morePriceType = morePriceType;
-        this.lessPriceType = lessPriceType;
-        this.morePeriod = morePeriod;
-        this.lessPeriod = lessPeriod;
+        this.shortPriceType = shortPriceType;
+        this.longPriceType = longPriceType;
+        this.shortTerm = shortTerm;
+        this.longTerm = longTerm;
         this.indicatorType = indicatorType;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getSymbol() {
         return symbol;
     }
 
-    public PriceType getMorePriceType() {
-        return morePriceType;
+    public PriceType getShortPriceType() {
+        return shortPriceType;
     }
 
-    public PriceType getLessPriceType() {
-        return lessPriceType;
+    public PriceType getLongPriceType() {
+        return longPriceType;
     }
 
-    public int getMorePeriod() {
-        return morePeriod;
+    public int getShortTerm() {
+        return shortTerm;
     }
 
-    public int getLessPeriod() {
-        return lessPeriod;
+    public int getLongTerm() {
+        return longTerm;
     }
 
     public IndicatorType getIndicatorType() {
         return indicatorType;
     }
 
-    public int getMaxPeriod() {
-        return Math.max(morePeriod, lessPeriod);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Rule rule = (Rule) o;
-        return morePeriod == rule.morePeriod && lessPeriod == rule.lessPeriod && Objects.equals(symbol, rule.symbol) && morePriceType == rule.morePriceType && lessPriceType == rule.lessPriceType && indicatorType == rule.indicatorType;
+        var rule = (Rule) o;
+        return id == rule.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol, morePriceType, lessPriceType, morePeriod, lessPeriod, indicatorType);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Rule{" +
                 "symbol='" + symbol + '\'' +
-                ", morePriceType=" + morePriceType +
-                ", lessPriceType=" + lessPriceType +
-                ", morePeriod=" + morePeriod +
-                ", lessPeriod=" + lessPeriod +
-                ", indicatorType=" + indicatorType +
+                ", " + shortTerm +
+                "-" + longTerm +
                 '}';
     }
 }

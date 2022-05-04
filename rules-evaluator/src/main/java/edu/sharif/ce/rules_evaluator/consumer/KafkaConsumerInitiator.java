@@ -12,6 +12,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class KafkaConsumerInitiator {
+
     public KafkaConsumer<String, Candlestick> create() {
         var bootstrapServers = Config.BOOTSTRAP_SERVERS;
         var keyDeserializerName = StringDeserializer.class.getName();

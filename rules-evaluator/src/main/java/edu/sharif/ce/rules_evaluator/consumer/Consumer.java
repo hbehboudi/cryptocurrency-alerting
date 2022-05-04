@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Consumer extends Thread {
+
     @Override
     public void run() {
         var delay = Config.CONSUMER_DELAY;

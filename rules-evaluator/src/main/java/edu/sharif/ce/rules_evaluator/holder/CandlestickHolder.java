@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CandlestickHolder {
+
     private final ConcurrentHashMap<String, ArrayList<Candlestick>> candlesticksBySymbol = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Long> lastOpenTimeBySymbol = new ConcurrentHashMap<>();
 

@@ -6,13 +6,18 @@ import edu.sharif.ce.commons.model.PriceType;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class SimpleMovingAverage extends Indicator {
-    public SimpleMovingAverage(int period, PriceType priceType) {
-        super(period, priceType);
+public class SimpleMovingAverageIndicator implements Indicator {
+
+    private final int period;
+    private final PriceType priceType;
+
+    public SimpleMovingAverageIndicator(int period, PriceType priceType) {
+        this.period = period;
+        this.priceType = priceType;
     }
 
     @Override
-    public LinkedHashMap<Candlestick, Double> calculateConsecutiveCandlesticks(List<Candlestick> candlesticks) {
+    public LinkedHashMap<Candlestick, Double> calculate(List<Candlestick> candlesticks) {
         var result = new LinkedHashMap<Candlestick, Double>();
 
         if (candlesticks.size() < period) {
