@@ -6,5 +6,6 @@ import edu.sharif.ce.commons.model.Candlestick;
 import java.util.List;
 
 public interface ExchangeApi {
+
     List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval);
 }

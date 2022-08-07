@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Producer extends Thread {
+
     private final ExchangeApi exchangeApi;
     private final Map<String, Long> lastOpenTimeBySymbol = new HashMap<>();
 

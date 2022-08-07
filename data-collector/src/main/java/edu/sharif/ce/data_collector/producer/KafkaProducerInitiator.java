@@ -10,6 +10,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 public class KafkaProducerInitiator {
+
     public KafkaProducer<String, Candlestick> create() {
         var bootstrapServers = Config.BOOTSTRAP_SERVERS;
         var keySerializerName = StringSerializer.class.getName();

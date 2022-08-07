@@ -33,17 +33,20 @@ public class Evaluator extends Thread {
         var alerts = new ArrayList<Alert>();
 
         for (var rule : rules) {
-            alerts.addAll(getNewAlerts(rule, lastOpenTimeByRule.get(rule)));
+            alerts.addAll(getNewAlerts(rule));
         }
 
         postAlerts(alerts);
         updateRules();
     }
 
-    private ArrayList<Alert> getNewAlerts(Rule rule, long lastTime) {
+    private ArrayList<Alert> getNewAlerts(Rule rule) {
         var result = new ArrayList<Alert>();
-        var candlesticks = CandlestickHolder.getInstance()
-                .getCandlesticks(rule.getSymbol(), lastTime - 60_000L * rule.getLongTerm());
+        var candlesticks = CandlestickHolder.getInstance().getCandlesticks(
+                rule.getSymbol(),
+                lastOpenTimeByRule.get(rule) - 60_000L * rule.getLongTerm());
+
+        lastOpenTimeByRule.put(rule, candlesticks.get(candlesticks.size() - 1).getOpenTime());
 
         if (candlesticks.isEmpty()) {
             return new ArrayList<>();

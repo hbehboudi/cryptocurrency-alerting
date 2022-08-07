@@ -59,7 +59,7 @@ public class WebApi {
         ResultDto resultDtos = new ObjectMapper().readValue(response.body(), new TypeReference<ResultDto>() {
         });
 
-        if (resultDtos.isSuccess) {
+        if (!resultDtos.isSuccess) {
             throw new Exception();
         }
     }

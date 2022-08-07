@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BinanceExchangeApi implements ExchangeApi {
+
     private final BinanceApiRestClient client;
 
     public BinanceExchangeApi() {
         var apiKey = Config.BINANCE_API_KEY;
         var secret = Config.BINANCE_SECRET;
-        var factory = BinanceApiClientFactory.newInstance(apiKey, secret);
-        client = factory.newRestClient();
+        client = BinanceApiClientFactory.newInstance(apiKey, secret).newRestClient();
     }
 
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval) {
@@ -26,7 +26,7 @@ public class BinanceExchangeApi implements ExchangeApi {
                 .collect(Collectors.toList());
     }
 
-    public static Candlestick convert(String symbol, com.binance.api.client.domain.market.Candlestick candlestick) {
+    private static Candlestick convert(String symbol, com.binance.api.client.domain.market.Candlestick candlestick) {
         var openTime = candlestick.getOpenTime();
         var open = candlestick.getOpen();
         var high = candlestick.getHigh();
@@ -34,6 +34,6 @@ public class BinanceExchangeApi implements ExchangeApi {
         var close = candlestick.getClose();
         var closeTime = candlestick.getCloseTime();
 
-        return new Candlestick(symbol, openTime, open, high, low, close, closeTime);
+        return new Candlestick(symbol, openTime , open, high, low, close, closeTime);
     }
 }
