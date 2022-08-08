@@ -12,6 +12,7 @@
     <modules>
         <module>data-collector</module>
         <module>commons</module>
+        <module>rules-evaluator</module>
     </modules>
 
     <properties>

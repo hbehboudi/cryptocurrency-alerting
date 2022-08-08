@@ -3,8 +3,8 @@ package edu.sharif.ce.data_collector.producer;
 import edu.sharif.ce.commons.model.Candlestick;
 import edu.sharif.ce.data_collector.config.Config;
 import edu.sharif.ce.data_collector.exchange.ExchangeApi;
-import edu.sharif.ce.data_collector.producer.factory.KafkaProducerFactory;
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class Producer extends Thread {
+
     private final ExchangeApi exchangeApi;
     private final Map<String, Long> lastOpenTimeBySymbol = new HashMap<>();
 
@@ -26,7 +27,7 @@ public class Producer extends Thread {
         var delay = Config.PRODUCER_DELAY;
         var timeUnit = TimeUnit.MILLISECONDS;
 
-        var producer = new KafkaProducerFactory().create();
+        var producer = new KafkaProducerInitiator().create();
         Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
 
         var executor = Executors.newSingleThreadScheduledExecutor();
