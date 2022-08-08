@@ -6,7 +6,8 @@ import edu.sharif.ce.data_collector.exchange.factory.ExchangeApiFactory;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Thread.sleep(10_000);
         new Producer(new ExchangeApiFactory().create(Config.EXCHANGE)).start();
     }
 }

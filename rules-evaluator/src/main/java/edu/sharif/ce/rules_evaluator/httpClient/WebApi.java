@@ -26,7 +26,7 @@ public class WebApi {
         return instance;
     }
 
-    private final String API_URL = "http://localhost:8000/api/RuleEvaluator";
+    private final String API_URL = "http://web-site/api/RuleEvaluator";
 
     public List<Rule> getRules() throws IOException, InterruptedException {
         var httpClient = HttpClient.newHttpClient();

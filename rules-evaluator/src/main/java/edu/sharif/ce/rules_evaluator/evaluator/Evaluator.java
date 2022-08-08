@@ -94,7 +94,6 @@ public class Evaluator extends Thread {
                 }
             }
         }
-
     }
 
     private void updateRules() {
