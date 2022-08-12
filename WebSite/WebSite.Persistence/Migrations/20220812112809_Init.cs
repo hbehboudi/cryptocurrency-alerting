@@ -81,6 +81,8 @@ namespace WebSite.Persistence.Migrations
                     LessPriceType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MorePeriod = table.Column<int>(type: "int", nullable: false),
                     LessPeriod = table.Column<int>(type: "int", nullable: false),
+                    TimeFrame = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Condition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InsertTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),

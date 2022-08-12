@@ -26,6 +26,8 @@
                                         <th>نام قاعده</th>
                                         <th>نماد</th>
                                         <th>اندیکاتور</th>
+                                        <th>دوره زمانی</th>
+                                        <th>شرط</th>
                                         <th>نوع قیمت ۱</th>
                                         <th>نوع قیمت ۲</th>
                                         <th>دوره‌تناوب ۱</th>
@@ -41,6 +43,8 @@
                                             <td>@rule.Name</td>
                                             <td>@rule.Symbol</td>
                                             <td>@rule.Indicator</td>
+                                            <td>@rule.TimeFrame</td>
+                                            <td>@rule.Condition</td>
                                             <td>@rule.MorePriceType</td>
                                             <td>@rule.LessPriceType</td>
                                             <td>@rule.MorePeriod</td>
@@ -48,7 +52,6 @@
                                             <td>@rule.Description</td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a href="~/rule/edit/@rule.Id" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                     <a class="btn btn-danger shadow btn-xs sharp" onclick="DeleteUser('@rule.Id')"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </td>
@@ -93,7 +96,7 @@
                         contentType: 'application/x-www-form-urlencoded',
                         dataType: 'json',
                         type: "Delete",
-                        url: "Delete",
+                        url: "rule/delete",
                         data: postData,
                         success: function (data) {
                             if (data.isSuccess == true) {

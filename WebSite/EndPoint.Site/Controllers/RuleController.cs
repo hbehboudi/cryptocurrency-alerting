@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Rules.Commands.AddRule;
 using WebSite.Application.Services.Rules.Commands.DeleteRule;
-using WebSite.Application.Services.Rules.Commands.EditRule;
 using WebSite.Application.Services.Rules.Queries.GetRule;
 using WebSite.Common.Dto;
 
@@ -41,7 +40,8 @@ namespace EndPoint.Site.Controllers
 
             var addRuleRequest = new AddRuleRequest(addRuleViewModel.Name, addRuleViewModel.Symbol,
                 addRuleViewModel.Description, owner, addRuleViewModel.Indicator, addRuleViewModel.MorePriceType,
-                addRuleViewModel.LessPriceType, addRuleViewModel.MorePeriod, addRuleViewModel.LessPeriod);
+                addRuleViewModel.LessPriceType, addRuleViewModel.MorePeriod, addRuleViewModel.LessPeriod,
+                addRuleViewModel.TimeFrame, addRuleViewModel.Condition);
             var resultDto = ruleFacad.AddRuleService.Execute(addRuleRequest);
 
             return Json(resultDto);
@@ -77,49 +77,6 @@ namespace EndPoint.Site.Controllers
             var deleteRuleRequest = new DeleteRuleRequest(id, owner);
 
             var resultDto = ruleFacad.DeleteRuleService.Execute(deleteRuleRequest);
-
-            return Json(resultDto);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(long id)
-        {
-            var owner = User.Identity.Name;
-
-            if (owner == null)
-            {
-                return Json(new ResultDto(false, "No user available."));
-            }
-
-            var getRuleRequest = new GetRuleRequest(owner, id);
-
-            var resultDto = ruleFacad.GetRuleService.Execute(getRuleRequest);
-
-            return View(resultDto.Data);
-        }
-
-        [HttpPut]
-        public IActionResult Edit(EditRuleViewModel editRuleViewModel)
-        {
-            var owner = User.Identity.Name;
-
-            if (owner == null)
-            {
-                return Json(new ResultDto(false, "No user available."));
-            }
-
-            var error = Validate(editRuleViewModel);
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                return Json(new ResultDto(false, error));
-            }
-
-            var editRuleRequest = new EditRuleRequest(editRuleViewModel.Id, owner, editRuleViewModel.Name,
-                editRuleViewModel.Symbol, editRuleViewModel.Description, editRuleViewModel.Indicator,
-                editRuleViewModel.MorePriceType, editRuleViewModel.LessPriceType,
-                editRuleViewModel.MorePeriod, editRuleViewModel.LessPeriod);
-            var resultDto = ruleFacad.EditRuleService.Execute(editRuleRequest);
 
             return Json(resultDto);
         }

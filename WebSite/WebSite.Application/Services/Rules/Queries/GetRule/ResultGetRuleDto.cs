@@ -22,8 +22,13 @@
 
         public int LessPeriod { get; }
 
+        public string TimeFrame { get; }
+
+        public string Condition { get; }
+
         public ResultGetRuleDto(long id, string owner, string name, string symbol, string description,
-            string indicator, string morePriceType, string lessPriceType, int morePeriod, int lessPeriod)
+            string indicator, string morePriceType, string lessPriceType, int morePeriod, int lessPeriod,
+            string timeFrame, string condition)
         {
             Id = id;
             Owner = owner;
@@ -35,6 +40,8 @@
             LessPriceType = lessPriceType;
             MorePeriod = morePeriod;
             LessPeriod = lessPeriod;
+            TimeFrame = timeFrame;
+            Condition = condition;
         }
     }
 }

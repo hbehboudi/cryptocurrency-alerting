@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSite.Persistence.Contexts;
 
 namespace WebSite.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220402070405_Init")]
+    [Migration("20220812112809_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,6 +192,10 @@ namespace WebSite.Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime2");
 
@@ -230,6 +235,10 @@ namespace WebSite.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeFrame")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -26,5 +26,11 @@ namespace EndPoint.Site.Models.ViewModels.Rule
 
         [Required]
         public int LessPeriod { get; set; }
+
+        [Required]
+        public string TimeFrame { get; set; }
+
+        [Required]
+        public string Condition { get; set; }
     }
 }

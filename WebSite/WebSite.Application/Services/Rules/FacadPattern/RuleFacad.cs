@@ -2,7 +2,6 @@
 using WebSite.Application.Interfaces.FacadPatterns;
 using WebSite.Application.Services.Rules.Commands.AddRule;
 using WebSite.Application.Services.Rules.Commands.DeleteRule;
-using WebSite.Application.Services.Rules.Commands.EditRule;
 using WebSite.Application.Services.Rules.Queries.GetRule;
 
 namespace WebSite.Application.Services.Rules.FacadPattern
@@ -14,8 +13,6 @@ namespace WebSite.Application.Services.Rules.FacadPattern
         private IAddRuleService addRuleService;
 
         private IDeleteRuleService deleteRuleService;
-
-        private IEditRuleService editRuleService;
 
         private IGetRuleService getRuleService;
 
@@ -35,14 +32,6 @@ namespace WebSite.Application.Services.Rules.FacadPattern
             get
             {
                 return deleteRuleService ??= new DeleteRuleService(dataBaseContext);
-            }
-        }
-
-        public IEditRuleService EditRuleService
-        {
-            get
-            {
-                return editRuleService ??= new EditRuleService(dataBaseContext);
             }
         }
 

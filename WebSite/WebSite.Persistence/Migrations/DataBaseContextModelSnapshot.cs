@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebSite.Persistence.Contexts;
 
 namespace WebSite.Persistence.Migrations
@@ -189,6 +190,10 @@ namespace WebSite.Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime2");
 
@@ -228,6 +233,10 @@ namespace WebSite.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeFrame")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

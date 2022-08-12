@@ -32,7 +32,9 @@ namespace WebSite.Application.Services.Rules.Commands.AddRule
                 MorePriceType = request.MorePriceType,
                 LessPriceType = request.LessPriceType,
                 MorePeriod = request.MorePeriod,
-                LessPeriod = request.LessPeriod
+                LessPeriod = request.LessPeriod,
+                TimeFrame = request.TimeFrame,
+                Condition = request.Condition
             };
 
             dataBaseContext.Rules.Add(rule);

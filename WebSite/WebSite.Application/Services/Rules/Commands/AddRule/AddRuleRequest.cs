@@ -20,8 +20,13 @@
 
         public int LessPeriod { get; }
 
+        public string TimeFrame { get; }
+
+        public string Condition { get; }
+
         public AddRuleRequest(string name, string symbol, string description, string owner,
-            string indicator, string morePriceType, string lessPriceType, int morePeriod, int lessPeriod)
+            string indicator, string morePriceType, string lessPriceType, int morePeriod, int lessPeriod,
+            string timeFrame, string condition)
         {
             Name = name;
             Symbol = symbol;
@@ -32,6 +37,8 @@
             LessPriceType = lessPriceType;
             MorePeriod = morePeriod;
             LessPeriod = lessPeriod;
+            TimeFrame = timeFrame;
+            Condition = condition;
         }
     }
 }
