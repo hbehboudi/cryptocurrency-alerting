@@ -28,6 +28,7 @@ namespace WebSite.Application.Services.Users.Commands.ForgotPassword
             }
 
             var newPassword = new Password(8).Next();
+            newPassword = newPassword.Replace("\\", "X");
 
             var title = "Forgot Password Email";
             var body = $"Your new password: {newPassword}";

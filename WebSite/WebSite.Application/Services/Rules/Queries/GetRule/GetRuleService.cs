@@ -151,7 +151,7 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
                 return "اندیکاتور ۱ اندیکاتور ۲ را به سمت بالا قطع کند.";
             }
 
-            if (condition == "Cross up")
+            if (condition == "Cross down")
             {
                 return "اندیکاتور ۱ اندیکاتور ۲ را به سمت پایین قطع کند.";
             }
