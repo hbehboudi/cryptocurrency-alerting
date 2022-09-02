@@ -81,49 +81,9 @@ namespace WebSite.Application.Services.Rules.Queries.GetRule
                 return "۱ دقیقه‌ای";
             }
 
-            if (timeFrame == "3m")
-            {
-                return "۳ دقیقه‌ای";
-            }
-
-            if (timeFrame == "5m")
-            {
-                return "۵ دقیقه‌ای";
-            }
-
-            if (timeFrame == "15m")
-            {
-                return "۱۵ دقیقه‌ای";
-            }
-
-            if (timeFrame == "30m")
-            {
-                return "۳۰ دقیقه‌ای";
-            }
-
-            if (timeFrame == "45m")
-            {
-                return "۴۵ دقیقه‌ای";
-            }
-
             if (timeFrame == "1h")
             {
                 return "۱ ساعته";
-            }
-
-            if (timeFrame == "2h")
-            {
-                return "۲ ساعته";
-            }
-
-            if (timeFrame == "3h")
-            {
-                return "۳ ساعته";
-            }
-
-            if (timeFrame == "4h")
-            {
-                return "۴ ساعته";
             }
 
             if (timeFrame == "1d")
