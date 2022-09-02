@@ -8,12 +8,10 @@ public class Alert {
 
     private final long ruleId;
     private final Candlestick candlestick;
-    private final Position position;
 
-    public Alert(long ruleId, Candlestick candlestick, Position position) {
+    public Alert(long ruleId, Candlestick candlestick) {
         this.ruleId = ruleId;
         this.candlestick = candlestick;
-        this.position = position;
     }
 
     public long getRuleId() {
@@ -24,20 +22,16 @@ public class Alert {
         return candlestick;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         var alert = (Alert) o;
-        return ruleId == alert.ruleId && Objects.equals(candlestick, alert.candlestick) && position == alert.position;
+        return ruleId == alert.ruleId && Objects.equals(candlestick, alert.candlestick);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ruleId, candlestick, position);
+        return Objects.hash(ruleId, candlestick);
     }
 }

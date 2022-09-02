@@ -13,19 +13,17 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
-        var delay = Config.CONSUMER_DELAY;
-
         var consumer = new KafkaConsumerInitiator().create();
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::close));
 
         var executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(() -> receive(consumer, delay), 0, delay, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(() -> receive(consumer), 0, Config.CONSUMER_DELAY, TimeUnit.MILLISECONDS);
     }
 
-    private void receive(KafkaConsumer<String, Candlestick> consumer, int delay) {
+    private void receive(KafkaConsumer<String, Candlestick> consumer) {
         var candlestickHolder = CandlestickHolder.getInstance();
 
-        var records = consumer.poll(Duration.ofMillis(delay));
+        var records = consumer.poll(Duration.ofMillis(Config.CONSUMER_TIMEOUT));
 
         for (var record : records) {
             candlestickHolder.addCandlestick(record.value());

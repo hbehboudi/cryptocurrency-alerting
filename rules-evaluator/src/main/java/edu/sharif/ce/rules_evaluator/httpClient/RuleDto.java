@@ -18,6 +18,10 @@ public class RuleDto {
 
     private String lessPriceType;
 
+    private String timeFrame;
+
+    private String condition;
+
     private int morePeriod;
 
     private int lessPeriod;
@@ -100,5 +104,21 @@ public class RuleDto {
 
     public void setLessPeriod(int lessPeriod) {
         this.lessPeriod = lessPeriod;
+    }
+
+    public String getTimeFrame() {
+        return timeFrame;
+    }
+
+    public void setTimeFrame(String timeFrame) {
+        this.timeFrame = timeFrame;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 }

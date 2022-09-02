@@ -14,8 +14,11 @@ public class Rule implements Serializable {
     private final int shortTerm;
     private final int longTerm;
     private final IndicatorType indicatorType;
+    private final String timeFrame;
+    private final String condition;
 
-    public Rule(long id, String symbol, PriceType shortPriceType, PriceType longPriceType, int shortTerm, int longTerm, IndicatorType indicatorType) {
+    public Rule(long id, String symbol, PriceType shortPriceType, PriceType longPriceType, int shortTerm, int longTerm,
+                IndicatorType indicatorType, String timeFrame, String condition) {
         this.id = id;
         this.symbol = symbol;
         this.shortPriceType = shortPriceType;
@@ -23,6 +26,8 @@ public class Rule implements Serializable {
         this.shortTerm = shortTerm;
         this.longTerm = longTerm;
         this.indicatorType = indicatorType;
+        this.timeFrame = timeFrame;
+        this.condition = condition;
     }
 
     public long getId() {
@@ -51,6 +56,14 @@ public class Rule implements Serializable {
 
     public IndicatorType getIndicatorType() {
         return indicatorType;
+    }
+
+    public String getTimeFrame() {
+        return timeFrame;
+    }
+
+    public String getCondition() {
+        return condition;
     }
 
     @Override

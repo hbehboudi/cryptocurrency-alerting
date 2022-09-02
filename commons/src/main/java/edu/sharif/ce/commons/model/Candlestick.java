@@ -10,8 +10,10 @@ public class Candlestick {
     private final String low;
     private final String close;
     private final Long closeTime;
+    private final String timeFrame;
 
-    public Candlestick(String symbol, Long openTime, String open, String high, String low, String close, Long closeTime) {
+    public Candlestick(String symbol, Long openTime, String open, String high, String low, String close, Long closeTime,
+                       String timeFrame) {
         this.symbol = symbol;
         this.openTime = openTime;
         this.open = open;
@@ -19,6 +21,7 @@ public class Candlestick {
         this.low = low;
         this.close = close;
         this.closeTime = closeTime;
+        this.timeFrame = timeFrame;
     }
 
     public String getSymbol() {
@@ -27,22 +30,6 @@ public class Candlestick {
 
     public Long getOpenTime() {
         return openTime;
-    }
-
-    public String getOpen() {
-        return open;
-    }
-
-    public String getHigh() {
-        return high;
-    }
-
-    public String getLow() {
-        return low;
-    }
-
-    public String getClose() {
-        return close;
     }
 
     public Long getCloseTime() {
@@ -64,17 +51,21 @@ public class Candlestick {
         return -1D;
     }
 
+    public String getTimeFrame() {
+        return timeFrame;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Candlestick that = (Candlestick) o;
-        return Objects.equals(symbol, that.symbol) && Objects.equals(openTime, that.openTime) && Objects.equals(open, that.open) && Objects.equals(high, that.high) && Objects.equals(low, that.low) && Objects.equals(close, that.close) && Objects.equals(closeTime, that.closeTime);
+        return Objects.equals(symbol, that.symbol) && Objects.equals(openTime, that.openTime) && Objects.equals(open, that.open) && Objects.equals(high, that.high) && Objects.equals(low, that.low) && Objects.equals(close, that.close) && Objects.equals(closeTime, that.closeTime) && Objects.equals(timeFrame, that.timeFrame);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol, openTime, open, high, low, close, closeTime);
+        return Objects.hash(symbol, openTime, open, high, low, close, closeTime, timeFrame);
     }
 
     @Override
@@ -87,6 +78,7 @@ public class Candlestick {
                 ", low='" + low + '\'' +
                 ", close='" + close + '\'' +
                 ", closeTime=" + closeTime +
+                ", timeFrame='" + timeFrame + '\'' +
                 '}';
     }
 }

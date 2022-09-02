@@ -40,7 +40,15 @@ public class WebApi {
         ResultDto resultDtos = new ObjectMapper().readValue(response.body(), new TypeReference<ResultDto>() {
         });
 
-        return resultDtos.data.ruleDtos.stream().map(this::convertToRule).collect(Collectors.toList());
+        var rules = resultDtos.data.ruleDtos.stream().map(this::convertToRule).collect(Collectors.toList());
+
+        if (rules.size() == 1) {
+            System.out.println("1 rule has been received.");
+        } else {
+            System.out.printf("%d rules have been received.\n", rules.size());
+        }
+
+        return rules;
     }
 
     public void addAlert(Alert alert) throws Exception {
@@ -50,7 +58,7 @@ public class WebApi {
                         String.format("{\"Secretkey\": \"SyXzAxDTso\", \"RuleId\": %d, \"Price\": %s, \"Time\": %d}",
                                 alert.getRuleId(),
                                 alert.getCandlestick().getPrice(PriceType.CLOSE),
-                                alert.getCandlestick().getCloseTime())))
+                                alert.getCandlestick().getCloseTime() + 16200000)))
                 .header("Content-Type", "application/json")
                 .uri(URI.create(API_URL))
                 .build();
@@ -62,6 +70,9 @@ public class WebApi {
         if (!resultDtos.isSuccess) {
             throw new Exception();
         }
+
+        System.out.printf("An alert is Added for rule %d and time frame %s.\n",
+                alert.getRuleId(), alert.getCandlestick().getTimeFrame());
     }
 
     private Rule convertToRule(RuleDto ruleDto) {
@@ -69,7 +80,7 @@ public class WebApi {
         var longPriceType = PriceType.valueOf(ruleDto.getMorePriceType().toUpperCase());
         var indicatorType = IndicatorType.valueOf(ruleDto.getIndicator());
 
-        return new Rule(ruleDto.getId(), ruleDto.getSymbol(), shortPriceType, longPriceType,
-                ruleDto.getLessPeriod(), ruleDto.getMorePeriod(), indicatorType);
+        return new Rule(ruleDto.getId(), ruleDto.getSymbol(), shortPriceType, longPriceType, ruleDto.getLessPeriod(),
+                ruleDto.getMorePeriod(), indicatorType, ruleDto.getTimeFrame(), ruleDto.getCondition());
     }
 }

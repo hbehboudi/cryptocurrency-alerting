@@ -15,7 +15,7 @@ public class JsonSerializerTests {
         var jsonSerializer = new JsonSerializer<>();
         var jsonDeserializer = createJsonDeserializer();
 
-        var actual = new Candlestick("symbol 1", 1L, "open 1", "high 1", "low 1", "close 1", 2L);
+        var actual = new Candlestick("symbol 1", 1L, "open 1", "high 1", "low 1", "close 1", 2L, "1m");
         var bytes = jsonSerializer.serialize("", actual);
         var expected = jsonDeserializer.deserialize("", bytes);
 

@@ -10,16 +10,22 @@ import java.util.stream.Collectors;
 
 public class CandlestickHolder {
 
-    private final ConcurrentHashMap<String, ArrayList<Candlestick>> candlesticksBySymbol = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, Long> lastOpenTimeBySymbol = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, ArrayList<Candlestick>>> candlesticks = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ConcurrentHashMap<String, Long>> lastOpenTimes = new ConcurrentHashMap<>();
 
     private static final CandlestickHolder instance = new CandlestickHolder();
 
     private CandlestickHolder() {
-        Config.SYMBOLS.forEach(x -> {
-            candlesticksBySymbol.put(x, new ArrayList<>());
-            lastOpenTimeBySymbol.put(x, 0L);
-        });
+        for (var symbol : Config.SYMBOLS) {
+            var lastOpenTimeByTimeFrame = new ConcurrentHashMap<String, Long>();
+            var candlesticksByTimeFrame = new ConcurrentHashMap<String, ArrayList<Candlestick>>();
+
+            Config.TIME_FRAMES.forEach(x -> lastOpenTimeByTimeFrame.put(x, 0L));
+            Config.TIME_FRAMES.forEach(x -> candlesticksByTimeFrame.put(x, new ArrayList<>()));
+
+            lastOpenTimes.put(symbol, lastOpenTimeByTimeFrame);
+            candlesticks.put(symbol, candlesticksByTimeFrame);
+        }
     }
 
     public static CandlestickHolder getInstance() {
@@ -29,16 +35,18 @@ public class CandlestickHolder {
     public synchronized void addCandlestick(Candlestick candlestick) {
         var symbol = candlestick.getSymbol();
         var openTime = candlestick.getOpenTime();
-        var lastOpenTime = lastOpenTimeBySymbol.get(symbol);
+        var timeFrame = candlestick.getTimeFrame();
+
+        var lastOpenTime = lastOpenTimes.get(symbol).get(timeFrame);
 
         if (openTime > lastOpenTime) {
-            candlesticksBySymbol.get(symbol).add(candlestick);
-            lastOpenTimeBySymbol.put(symbol, openTime);
+            candlesticks.get(symbol).get(timeFrame).add(candlestick);
+            lastOpenTimes.get(symbol).put(timeFrame, openTime);
         }
     }
 
-    public synchronized List<Candlestick> getCandlesticks(String symbol, long startTime) {
-        return candlesticksBySymbol.get(symbol)
+    public synchronized List<Candlestick> getCandlesticks(String symbol, String timeFrame, long startTime) {
+        return candlesticks.get(symbol).get(timeFrame)
                 .stream()
                 .filter(x -> x.getOpenTime() > startTime)
                 .collect(Collectors.toList());

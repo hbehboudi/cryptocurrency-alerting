@@ -15,23 +15,25 @@ import java.util.stream.Collectors;
 public class Producer extends Thread {
 
     private final ExchangeApi exchangeApi;
-    private final Map<String, Long> lastOpenTimeBySymbol = new HashMap<>();
+    private final Map<String, Map<String, Long>> lastOpenTimes = new HashMap<>();
 
     public Producer(ExchangeApi exchangeApi) {
         this.exchangeApi = exchangeApi;
-        Config.SYMBOLS.forEach(x -> lastOpenTimeBySymbol.put(x, 0L));
+
+        for (String symbol : Config.SYMBOLS) {
+            var lastOpenTimeByTimeFrame = new HashMap<String, Long>();
+            Config.TIME_FRAMES.forEach(x -> lastOpenTimeByTimeFrame.put(x, 0L));
+            lastOpenTimes.put(symbol, lastOpenTimeByTimeFrame);
+        }
     }
 
     @Override
     public void run() {
-        var delay = Config.PRODUCER_DELAY;
-        var timeUnit = TimeUnit.MILLISECONDS;
-
         var producer = new KafkaProducerInitiator().create();
         Runtime.getRuntime().addShutdownHook(new Thread(producer::close));
 
         var executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(() -> sendAllSymbols(producer), 0, delay, timeUnit);
+        executor.scheduleAtFixedRate(() -> sendAllSymbols(producer), 0, Config.PRODUCER_DELAY, TimeUnit.MILLISECONDS);
     }
 
     private void sendAllSymbols(KafkaProducer<String, Candlestick> producer) {
@@ -40,11 +42,14 @@ public class Producer extends Thread {
     }
 
     private void send(KafkaProducer<String, Candlestick> producer, String symbol) {
-        var topic = Config.TOPIC;
-        var candlestickInterval = Config.CANDLESTICK_INTERVAL;
-        var lastOpenTime = lastOpenTimeBySymbol.get(symbol);
+        Config.TIME_FRAMES.forEach(x -> send(producer, symbol, x));
+    }
 
-        var candlesticks = exchangeApi.getCandlestickBars(symbol, candlestickInterval)
+    private void send(KafkaProducer<String, Candlestick> producer, String symbol, String timeFrame) {
+        var topic = Config.TOPIC;
+        var lastOpenTime = lastOpenTimes.get(symbol).get(timeFrame);
+
+        var candlesticks = exchangeApi.getCandlestickBars(symbol, timeFrame)
                 .stream()
                 .filter(x -> x.getOpenTime() > lastOpenTime)
                 .collect(Collectors.toList());
@@ -54,7 +59,15 @@ public class Producer extends Thread {
             producer.send(record);
         }
 
+        if (candlesticks.size() == 1) {
+            System.out.printf("%s %s: %d candle is added.\n", symbol, timeFrame, candlesticks.size());
+        }
+
+        if (candlesticks.size() > 1) {
+            System.out.printf("%s %s: %d candles are added.\n", symbol, timeFrame, candlesticks.size());
+        }
+
         var newLastOpenTime = candlesticks.stream().mapToLong(Candlestick::getOpenTime).max().orElse(lastOpenTime);
-        lastOpenTimeBySymbol.put(symbol, newLastOpenTime);
+        lastOpenTimes.get(symbol).put(timeFrame, newLastOpenTime);
     }
 }

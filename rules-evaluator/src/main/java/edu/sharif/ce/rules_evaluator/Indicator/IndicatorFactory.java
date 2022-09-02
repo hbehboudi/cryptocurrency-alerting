@@ -10,6 +10,14 @@ public class IndicatorFactory {
             return new SimpleMovingAverageIndicator(period, priceType);
         }
 
+        if (indicatorType == IndicatorType.WMA) {
+            return new WeightedMovingAverageIndicator(period, priceType);
+        }
+
+        if (indicatorType == IndicatorType.EMA) {
+            return new ExponentialMovingAverageIndicator(period, priceType);
+        }
+
         throw new UnsupportedOperationException();
     }
 }

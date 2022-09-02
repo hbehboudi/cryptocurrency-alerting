@@ -11,6 +11,7 @@ import edu.sharif.ce.rules_evaluator.model.Rule;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -23,10 +24,8 @@ public class Evaluator extends Thread {
 
     @Override
     public synchronized void start() {
-        var delay = Config.CONSUMER_DELAY;
-
         var executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleAtFixedRate(this::evaluate, 0, delay, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(this::evaluate, 0, Config.CONSUMER_DELAY, TimeUnit.MILLISECONDS);
     }
 
     private void evaluate() {
@@ -44,6 +43,7 @@ public class Evaluator extends Thread {
         var result = new ArrayList<Alert>();
         var candlesticks = CandlestickHolder.getInstance().getCandlesticks(
                 rule.getSymbol(),
+                rule.getTimeFrame(),
                 lastOpenTimeByRule.get(rule) - 60_000L * rule.getLongTerm());
 
         lastOpenTimeByRule.put(rule, candlesticks.get(candlesticks.size() - 1).getOpenTime());
@@ -67,13 +67,17 @@ public class Evaluator extends Thread {
 
             if (midTermResult > shortTermResult) {
                 if (acceptedSell) {
-                    result.add(new Alert(rule.getId(), key, Position.SELL));
+                    if (Objects.equals(rule.getCondition(), "Cross up")) {
+                        result.add(new Alert(rule.getId(), key));
+                    }
                     acceptedSell = false;
                 }
                 acceptedBuy = true;
             } else if (midTermResult < shortTermResult) {
                 if (acceptedBuy) {
-                    result.add(new Alert(rule.getId(), key, Position.BUY));
+                    if (Objects.equals(rule.getCondition(), "Cross down")) {
+                        result.add(new Alert(rule.getId(), key));
+                    }
                     acceptedBuy = false;
                 }
                 acceptedSell = true;
