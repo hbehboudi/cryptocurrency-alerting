@@ -23,8 +23,8 @@
                             <table id="example3" class="display table-responsive-lg">
                                 <thead>
                                     <tr>
-                                        <th>نام قاعده</th>
-                                        <th>جفت ارز</th>
+                                        <th>نام</th>
+                                        <th>نماد</th>
                                         <th>اندیکاتور</th>
                                         <th>دوره زمانی</th>
                                         <th>شرط</th>
@@ -95,8 +95,8 @@
                     $.ajax({
                         contentType: 'application/x-www-form-urlencoded',
                         dataType: 'json',
-                        type: "Delete",
-                        url: "rule/Delete",
+                        type: "Post",
+                        url: "Delete",
                         data: postData,
                         success: function (data) {
                             if (data.isSuccess == true) {

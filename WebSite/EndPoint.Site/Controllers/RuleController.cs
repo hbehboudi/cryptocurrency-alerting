@@ -64,7 +64,7 @@ namespace EndPoint.Site.Controllers
             return View(resultDto.Data);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IActionResult Delete(long id)
         {
             var owner = User.Identity.Name;
